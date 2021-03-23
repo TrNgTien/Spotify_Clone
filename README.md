@@ -1,11 +1,12 @@
-Project Proposal
-Proposed by Group 6 
+# Project Proposal
+   Proposed by Group 6 
+
 Project Name:  Spotify Clone ( Topic 21 )
 Group’s members: 
-Trần Ngọc Tiến -  ITITIU19217 (Leader)
-Phạm Hữu Duy Khánh - ITITIU19019
-Trần Đoàn Quốc Đạt - ITITWE19020
-Nguyễn Quốc Việt - ITITWE19004
+  1. Trần Ngọc Tiến -  ITITIU19217 (Leader)
+  2. Phạm Hữu Duy Khánh - ITITIU19019
+  3. Trần Đoàn Quốc Đạt - ITITWE19020
+  4. Nguyễn Quốc Việt - ITITWE19004
 Nguyễn Đức Minh - ITITIU19030
 Description: 
 The original Spotify is an online Music Application with multiple features for artists and listeners. Spotify provides a premium music service with high-quality audio, custom playlists, recommendations, and an enormous music database. Spotify admits artists post their music on this platform. 
