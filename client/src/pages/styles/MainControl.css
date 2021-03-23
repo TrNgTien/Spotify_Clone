@@ -1,0 +1,144 @@
+.main-control--page{
+    background-color: #000000;
+    color:#fefefe ;
+    width: 30%;
+}
+.main-control--branding{
+    opacity: 0.80;
+    display: flex;
+    cursor: pointer;
+}
+.main-control--branding > p {
+    margin-top: 30px;
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+.main-control--music-node{
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+    margin-left: 10px;
+    transform: rotate(10deg);
+}
+.main-control--home-page__control{
+    display: flex;
+    cursor: pointer;
+    opacity: 0.6;
+}
+.main-control--searching__control{
+    display: flex;
+    cursor: context-menu;
+    opacity: 0.2;
+}
+.main-control--library__control{
+    display: flex;
+    cursor: pointer;
+    opacity: 0.6;
+}
+.main-control--home-page__control > p {
+    margin-left: 10px;
+    font-size: 20px;
+    margin-top: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-control--library__control > p {
+    margin-left: 10px;
+    font-size: 20px;
+    margin-top: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-control--searching__control > p {
+    margin-left: 10px;
+    font-size: 20px;
+    margin-top: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-control--home-page__control:hover{
+    background-color:rgb(68, 62, 62) ;
+    transition: 0.5s;
+    opacity: 1;
+}
+.main-control--library__control:hover{
+    background-color:rgb(68, 62, 62) ;
+    transition: 0.5s;
+    opacity: 1;
+}
+.main-control--icon-navigator{
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.main-control--icon-home{
+    margin-top: 10px;
+    margin-left: 15px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+.main-control--playlist{
+    height: 100%;
+}
+.main-control--playlist > h2{
+    margin-left: 20px;
+    opacity: 0.6;
+    font-size: 15px;
+    border-bottom: 1px solid white ;
+    width: 50%;
+    cursor: context-menu;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-control--create-list{
+    background-color: rgb(158, 145, 145);
+    opacity: 0.2;
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: context-menu;
+}
+.main-control--create-list > p {
+    font-size: 18px;
+    margin-left: 50px;
+    margin-top: -25px;
+    white-space: nowrap;
+}
+/* .main-control--create-list:hover{
+    opacity: 0.95;
+    cursor: pointer;
+} */
+.main-control--create-list__icon{
+    width: 25px;
+    height: 25px;
+    margin-left: 8px;
+    padding-top: 7px;
+    color: rgb(37, 35, 35);
+    opacity: 0.75;
+}
+.main-control--favourite{
+    margin-top: 20px;
+    background-color: rgb(69, 69, 182);
+    opacity: 0.55;
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    /* display: flex; */
+}
+.main-control--favourite > p {
+    margin-left: 50px;
+    margin-top: -25px;
+    font-size: 18px;
+}
+.main-control--favourite:hover{
+    opacity: 1;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.main-control--favourite__icon{
+    width: 25px;
+    height: 25px;
+    margin-left: 8px;
+    padding-top: 7px;
+}
+
+
