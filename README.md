@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+Project Proposal
+Proposed by Group 6 
+Project Name:  Spotify Clone ( Topic 21 )
+Group’s members: 
+Trần Ngọc Tiến -  ITITIU19217 (Leader)
+Phạm Hữu Duy Khánh - ITITIU19019
+Trần Đoàn Quốc Đạt - ITITWE19020
+Nguyễn Quốc Việt - ITITWE19004
+Nguyễn Đức Minh - ITITIU19030
+Description: 
+The original Spotify is an online Music Application with multiple features for artists and listeners. Spotify provides a premium music service with high-quality audio, custom playlists, recommendations, and an enormous music database. Spotify admits artists post their music on this platform. 
+Our project is Spotify Clone, and we attempt to step by step recreate the famous web app on our own. For the purpose of this course, we focus mainly on the core functionalities and database manipulation and hope to learn more in the process.
+Spotify Clone stores music with attributes like songID, songTitle, duration, artist, genre, numOfLikes, etc. 
+Another subject are users (Admins and normal Users) that can browse through our libraries and listen to the music.
+Users can Filter the libraries to make the process more enjoyable and convenient.
+All users can “Like” songs, and those songs will be put into a personal “Liked music” list. 
+However, the Admin have an additional function of adding and deleting music, manipulating the database. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Subject Requirements:
+Understanding about the entity-relationship model and all its characteristics.
+Develop skills in designing database models  for practical applications.
+Understand characteristics of popular commercial database products.
+Develop skills in installing physical databases on DBMS, e.g: MS SQL, MySQL,....
+Develop skills in building simple applications that access data stored in database servers. 
 
-## Available Scripts
+IV. Functionalities:
+Music Browsing: Allows the Users to browse through the library of music and choose the song to play with additional features:
+Filter by Artist
+Filter by Genre
 
-In the project directory, you can run:
+Simple Login and Registration: We only save accounts in the database to handle functionalities.
+There will be 2 types of Accounts (Admin and Users) and there are differences in their functionalities:
+Upload and Delete music in database (Admin only)
+Browse, Play, Like and Unlike music (All accounts)
 
-### `npm start`
+Web music player: To actually read the data from the database and listen to the music.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+V. Technical:
+Mainly focus on handling the database with MySQL and SQL.
+Programming Language: JavaScript (for Web Development).
+Extra (low priority): User Interface.
+Framework: Scrum - Methodology: Agile. (More details in the links).
+VI. Task assigned:
+Members will be assigned the task follow 3 main functionalities from above (The task will be changed to be varied for each person in the development of the system ):
+Function 1: Dat, Viet, Khanh.
+Function 2: Tien, Minh.
+Function 3: Tien.
+Methodology for software development: Khanh.
