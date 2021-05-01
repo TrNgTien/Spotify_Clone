@@ -1,6 +1,5 @@
-const app = require('../../index');
-const sqlQuery = require('../my_sql_query');
-const dbConnection = require('../db_connection');
+const sqlQuery = require('../../database/my_sql_query');
+const dbConnection = require('../../database/db_connection');
 
 // Get all songs    
 module.exports.getAllSongs = async (req, res) => {
@@ -19,4 +18,9 @@ module.exports.getAllSongs = async (req, res) => {
         })
     }
 
+}
+
+// Dealing when admin post song     
+module.exports.postSong = async (req, res) => {
+    //To do
 }

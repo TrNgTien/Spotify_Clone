@@ -1,3 +1,4 @@
+const mysql = require("mysql");
 // TODO: Global database config
 const dbConfig = mysql.createConnection({
     user: "b4bb330a3f009b",
