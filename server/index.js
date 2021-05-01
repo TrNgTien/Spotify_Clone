@@ -10,7 +10,6 @@ app.use(express.json());
 // Default port
 app.get("/", (req, res) => res.send({ error: true, message: "Hello" }));
 
-
 // Listen to port
 app.listen(PORT, () => {
   console.log(`Server is running in ${PORT}`);
