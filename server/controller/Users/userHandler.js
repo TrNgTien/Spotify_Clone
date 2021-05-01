@@ -1,7 +1,7 @@
 const { 
     register,
     getUserByUserName 
-    } = require("./query");  
+    } = require("./UserQueries");  
 
 
 
