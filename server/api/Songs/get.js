@@ -6,7 +6,7 @@ const dbConnection = require('../db_connection');
 module.exports.getAllSongs = async (req, res) => {
     try {
         let connection = await dbConnection();
-        let getSongsQuery = "SELECT songname, uploadDate, numberOfLikes, duration FROM 'songs'"
+        let getSongsQuery = "SELECT songname, uploadDate, numberOfLikes, duration FROM `songs`"
         let getSongs = await sqlQuery(connection, getSongsQuery);
 
         connection.end();
