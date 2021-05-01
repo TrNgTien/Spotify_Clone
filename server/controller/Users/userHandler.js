@@ -1,8 +1,9 @@
 const { 
-    create,
+    register,
     getUserByUserName 
-    } = require("../../database/my_sql_query")    
-const pool = require("../../database/db_connection");
+    } = require("./query");  
+
+
 
 
 
@@ -10,7 +11,7 @@ const pool = require("../../database/db_connection");
 module.exports = {
     createUser: (req, res) => {
         const body = req.body;
-        create(body, (err, results) => {
+        register(body, (err, results) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({
