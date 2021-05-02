@@ -60,6 +60,7 @@ Develop skills in building simple applications that access data stored in databa
     4. A tool for software development:  Kanban Board.
 ## Task assigned:
    Members will be assigned the task follow 3 main phases from development roadmap:
+   
       1. Analysis ERD, functionalities of the system, evaluate and normalize data of the system: All members will be assigned.
       2. Design database in MySQL: All members will be assigned.
       3. Create RESTful APIs: Viet, Khanh, Dat, Tien.
