@@ -7,7 +7,7 @@ const dbConfig = mysql.createConnection({
     database: "heroku_1fcc54407741c0e",
   });
   
-  module.exports = async () =>
+  module.exports.db = async () =>
     new Promise((resolve, reject) => {
       const connection = mysql.createConnection(dbConfig);
   
@@ -21,4 +21,3 @@ const dbConfig = mysql.createConnection({
         resolve(connection);
       });
     });
-  
