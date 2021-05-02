@@ -1,6 +1,6 @@
 export const SONG_ATTRIBUTE = {
     songID: `songID`,
-    songName: `songname`,
+    songName: `songName`,
     uploadDate: `uploadDate`,
     numberOfLikes: `numberOfLikes`,
     duration: `duration`

@@ -2,14 +2,18 @@ const sqlQuery = require("../../database/my_sql_query");
 const dbConnection = require("../../database/db_connection");
 
 import { SONG_ATTRIBUTE } from "./attribute";
-import { getRandomInt } from "../../helper/id";
 
 // Get all songs
 module.exports.getAllSongs = async (data, res) => {
   try {
     let connection = await dbConnection();
-    let getSongsQuery =
-      "SELECT songname, uploadDate, numberOfLikes, duration FROM `songs`";
+    let getSongsQuery = `
+      SELECT 
+        ${SONG_ATTRIBUTE.songName}, 
+        ${SONG_ATTRIBUTE.uploadDate}, 
+        ${SONG_ATTRIBUTE.numberOfLikes}, 
+        ${SONG_ATTRIBUTE.duration} 
+      FROM songs`;
     let getSongs = await sqlQuery(connection, getSongsQuery);
 
     connection.end();
@@ -29,14 +33,12 @@ module.exports.postSong = async (data, res) => {
     let connection = await dbConnection();
     let postSongsQuery = `
       INSERT INTO songs(
-        ${SONG_ATTRIBUTE.songID},
         ${SONG_ATTRIBUTE.songName}, 
         ${SONG_ATTRIBUTE.uploadDate}, 
         ${SONG_ATTRIBUTE.numberOfLikes}, 
         ${SONG_ATTRIBUTE.duration}
       )
       VALUES(
-        ${getRandomInt(10)},
         ${data.songName},
         ${data.uploadDate},
         ${data.numberOfLikes},
