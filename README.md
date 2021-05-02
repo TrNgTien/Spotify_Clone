@@ -15,11 +15,6 @@
 Our project is Spotify Clone, and we attempt to step by step recreate the famous web app on our own. For the purpose of this course, we focus mainly on the core functionalities and database manipulation and hope to learn more in the process.
 
 
-
- 
- 
-
-
 #### Spotify Clone stores music, songID, songName, duration, artist, genre, numOfLikes, etc. 
 #### Another subject are users (Admin and normal Users) that can browse through our libraries and listen to the music.
 
@@ -30,28 +25,31 @@ Our project is Spotify Clone, and we attempt to step by step recreate the famous
 #### However, the Admin have an additional function of adding and deleting music, manipulating the database.
 
 ## Subject Requirements:
-Understanding about the entity-relationship model and all its characteristics.
-Develop skills in designing database models  for practical applications.
-Understand characteristics of popular commercial database products.
-Develop skills in installing physical databases on DBMS, e.g: MS SQL, MySQL,....
-Develop skills in building simple applications that access data stored in database servers. 
+      1. Understanding about the entity-relationship model and all its characteristics.
+      2. Develop skills in designing database models  for practical applications.
+      3. Understand characteristics of popular commercial database products.
+      4. Develop skills in installing physical databases on DBMS, e.g: MS SQL, MySQL,....
+      5. Develop skills in building simple applications that access data stored in database servers. 
 
 ## Functionalities:
    1. Music Browsing: Allows the Users to browse through the library of music and choose the song to play with additional features:
-      a. Filter by Artist.
-      b. Filter by Genre.
-      c. Filter by Ranking.
-   2. Simple Login and Registration: We only save accounts in the database to handle functionalities.
-
-      There will be 2 types of Accounts (Admin and Users) and there are differences in their functionalities:
-         a. Upload and Delete music in database (Admin only)
-         b. Browse, Play, Like and Unlike music (All accounts)
+                  
+            a. Filter by Artist.
+            b. Filter by Genre.
+            c. Filter by Ranking.
+   2. Simple Login and Registration: 
+      We only save accounts in the database to handle functionalities.
+      There will be 2 types of Accounts (Admin and Users) and there are differences in their functionalities
+      
+            a.Upload and Delete music in database (Admin only)
+            b. Browse, Play, Like and Unlike music (All accounts)
 
 ## Development roadmap:
    Contain 3 phases: 
-      1. Design Database in MySQL.
-      2. Create RESTful APIs.
-      3. Finish User Interface.
+   
+         1. Design Database in MySQL.
+         2. Create RESTful APIs.
+         3. Finish User Interface.
 
 ## Technical:
     1. Mainly focus on handling the database with MySQL and SQL.
