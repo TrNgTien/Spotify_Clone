@@ -1,7 +1,7 @@
 //Packages
 import React from "react";
-import FavouritePage from "../components/FavouritePage";
-import HomePage from "../components/HomePage";
+import PlayList from "../../components/PlayList";
+import HomePage from "../../components/HomePage";
 
 
 //Styles
@@ -11,9 +11,12 @@ const MusicGrid = (props) => {
   const optionClicked = props.viewOption;
   const dataSong = props.dataSong;
   return (
-    <div className = "music-grid--page">
+    <div className = "music-grid__page">
+      <div className = "music-grid__page--header">
+        test User Bar
+      </div>
       {optionClicked === "favourite" ? (
-        <FavouritePage />
+        <PlayList />
       ) : optionClicked === "homePage" ? (
         <HomePage dataSong = {dataSong} />
       ) : (

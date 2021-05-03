@@ -6,12 +6,12 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LoginForm from "../pages/auth/LoginForm";
 import RegisterForm from "../pages/auth/RegisterForm";
-import MainPage from "../pages/MainPage";
+import DashBoard from "../pages/MusicPlace/DashBoard";
 
 const MainRoute = () => {
   return (
     <Router>
-      <Route exact path="/main-page" component={MainPage} />
+      <Route exact path="/main-page" component={DashBoard} />
       <Route exact path="/register-form" component={RegisterForm} />
       <Route exact path="/" component={LoginForm} />
     </Router>
