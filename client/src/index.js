@@ -10,7 +10,6 @@ ReactDOM.render(
     <Provider store={store}>
       <MainRoute />
     </Provider>
-    ,
   </React.StrictMode>,
   document.getElementById("root")
 );
