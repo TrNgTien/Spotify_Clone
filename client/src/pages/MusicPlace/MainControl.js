@@ -5,7 +5,8 @@ import { IoMdHome } from "react-icons/io";
 import { ImBooks } from "react-icons/im";
 import { ImSearch } from "react-icons/im";
 import { AiFillPlusCircle } from "react-icons/ai";
-import UploadForm from "../../components/UploadForm";
+import { useDispatch } from "react-redux";
+import { setOpenModal } from "../../slices/FormModal";
 
 //Styles
 import "./styles/MainControl.css";
@@ -13,14 +14,17 @@ import { Button } from "@material-ui/core";
 // import "./styles/compressed/MainControl.min.css";
 
 const MainControl = (props) => {
+  const dispatch = useDispatch();
+
   const viewOptionControl = (viewOption) => {
     props.viewOptionMusic(viewOption);
   };
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOpenForm = () => {
-    setIsOpen(!isOpen);
+    setIsOpenModal(!isOpenModal);
+    dispatch(setOpenModal(isOpenModal));
   };
   return (
     <div className="main-control--page">
@@ -68,11 +72,12 @@ const MainControl = (props) => {
             marginTop: "25%",
             backgroundColor: "dodgerblue",
           }}
-          onClick={() => handleOpenForm()}
+          onClick={() => {
+            handleOpenForm();
+          }}
         >
           Upload Music
         </Button>
-        {isOpen === true ? <UploadForm /> : null}
       </div>
     </div>
   );

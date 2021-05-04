@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./slices/CounterSlice";
+import FormModal  from "./slices/FormModal";
 
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    modal: FormModal,
   },
 });
