@@ -8,14 +8,13 @@ import MusicBar from "./MusicBar";
 import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 //Styles
 import "./styles/DashBoard.css";
-import UploadForm from "../../components/UploadForm";
-import { useSelector } from "react-redux";
+
 const DashBoard = (props) => {
   const [dataMain, setDataMain] = useState(DATA_SONG);
   const [viewOption, setViewOption] = useState();
   const [isLoaded, setIsLoaded] = useState(true);
 
-  const { isOpenModal } = useSelector((state) => state.modal);
+
   const getData = async () => {
     const response = await axios.get(`${API_CONNECTION}`);
     const data = response.data;
@@ -38,7 +37,7 @@ const DashBoard = (props) => {
   // }
 
   /**
-   * @param {*} the option which user want to show
+   * @param option which user want to show
    * @return the view of the option
    */
   const viewOptionMusic = (viewOption) => {
@@ -46,9 +45,6 @@ const DashBoard = (props) => {
   };
   return (
     <div className="dash-board">
-      {isOpenModal === true ? (
-        <UploadForm style={{ marginTop: "50%" }} />
-      ) : null}
       <div className="dash-board__screen">
         <MainControl
           viewOptionMusic={(viewOption) => viewOptionMusic(viewOption)}

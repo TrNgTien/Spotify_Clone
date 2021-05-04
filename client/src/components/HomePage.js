@@ -1,12 +1,14 @@
 //Packages
 import React from "react";
+import { useSelector } from "react-redux";
+import UploadForm from "./UploadForm";
 
 //Styles
-// import "./styles/HomePage.css";
-import "./styles/compressed/HomePage.min.css"
-
+import "./styles/HomePage.css";
+// import "./styles/compressed/HomePage.min.css";
 const HomePage = (props) => {
-  const dataSong = props.dataSong;
+  const { isOpenModal } = useSelector((state) => state.modal);
+  const { dataSong } = props;
   const renderMusicGrid = () => {
     return (
       dataSong &&
@@ -24,9 +26,11 @@ const HomePage = (props) => {
   };
   return (
     <div>
-      <div className="home-page--view">
-        {renderMusicGrid()}
-      </div>
+      {isOpenModal === true ? (
+        <UploadForm />
+      ) : (
+        <div className="home-page--view">{renderMusicGrid()}</div>
+      )}
     </div>
   );
 };

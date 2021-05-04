@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     backgroundColor: "white",
+    marginBottom: "2%",
+    marginTop: "-3%",
   },
 }));
 
@@ -54,11 +56,12 @@ export default function UploadForm() {
                 variant="outlined"
                 required
                 fullWidth
-                id="uploadDate"
-                label="Upload Date"
-                name="uploadDate"
+                id="releaseDate"
+                label="Release Date"
+                name="releaseDate"
                 color="secondary"
-                autoComplete="uploadDate"
+                autoComplete="releaseDate"
+                placeholder="Release Date Of The Song"
               />
             </Grid>
             <Grid item xs={12}>
@@ -69,6 +72,7 @@ export default function UploadForm() {
                 id="duration"
                 label="Duration"
                 name="duration"
+                placeholder="Ex: 2:20"
                 color="secondary"
                 autoComplete="duration"
               />
