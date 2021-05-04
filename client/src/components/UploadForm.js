@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
@@ -7,31 +7,59 @@ import {
   TextField,
   Grid,
 } from "@material-ui/core";
-
+import { useDispatch } from "react-redux";
+import { setCloseModal } from "../slices/FormModal";
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
   },
-  submit: {
+  uploadButton: {
+    marginBottom: "15%",
+    width: "45%",
     margin: theme.spacing(3, 0, 2),
+    border: "2px solid dodgerblue",
+    color: "white",
+    marginLeft: "5%",
+    backgroundColor: "dodgerblue",
+    "&:hover": {
+      backgroundColor: "dodgerblue",
+    },
+  },
+  cancelButton: {
+    margin: theme.spacing(3, 0, 2),
+    border: "2px solid grey",
+    color: "black",
+    marginBottom: "15%",
+    width: "45%",
+    marginLeft: "5%",
+    backgroundColor: "white",
+    "&:hover": {
+      backgroundColor: "white",
+    },
   },
   container: {
     backgroundColor: "white",
-    marginBottom: "2%",
-    marginTop: "-3%",
+    borderRadius: "10%",
+    zIndex: "1",
+    position: "absolute",
+    marginLeft: "37%",
+    marginTop: "6%",
   },
 }));
 
 export default function UploadForm() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const handleCloseModal = () => {
+    dispatch(setCloseModal(false));
+  };
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>
       <CssBaseline />
@@ -102,15 +130,25 @@ export default function UploadForm() {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Upload
-          </Button>
+          <Container>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.uploadButton}
+            >
+              Upload
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.cancelButton}
+              onClick={() => handleCloseModal()}
+            >
+              Cancel
+            </Button>
+          </Container>
         </form>
       </div>
     </Container>

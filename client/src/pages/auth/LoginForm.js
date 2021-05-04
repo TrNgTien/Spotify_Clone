@@ -13,7 +13,6 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import background from "../../assets/background.jpg";
-const RANDOM_PICTURES = "https://source.unsplash.com/random";
 
 const PICTURE_LOGIN = background;
 
@@ -56,7 +55,7 @@ export default function LoginForm(props) {
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {"Developed in 2021."}
+        Developed in 2021.
       </Typography>
     );
   }
@@ -100,7 +99,6 @@ export default function LoginForm(props) {
               label="Remember me"
             /> */}
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"

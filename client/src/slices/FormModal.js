@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 export const FormModal = createSlice({
   name: "modal",
-  initialState: {
-    isOpenModal: false,
-  },
+  initialState: {},
   reducers: {
     setOpenModal: (state, action) => {
-      const isOpen = action.payload;
-      state.isOpenModal = !isOpen;
+      return action.payload;
+    },
+    setCloseModal: (state, action) => {
+      return action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setOpenModal } = FormModal.actions;
+export const { setOpenModal, setCloseModal } = FormModal.actions;
 export default FormModal.reducer;

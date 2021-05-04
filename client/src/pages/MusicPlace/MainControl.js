@@ -20,11 +20,9 @@ const MainControl = (props) => {
     props.viewOptionMusic(viewOption);
   };
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOpenForm = () => {
-    setIsOpenModal(!isOpenModal);
-    dispatch(setOpenModal(isOpenModal));
+    dispatch(setOpenModal(true));
   };
   return (
     <div className="main-control--page">
