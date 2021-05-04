@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cancelButton: {
     margin: theme.spacing(3, 0, 2),
-    border: "2px solid grey",
-    color: "black",
+    border: "2px solid red",
+    color: "red",
     marginBottom: "15%",
     width: "45%",
     marginLeft: "5%",
