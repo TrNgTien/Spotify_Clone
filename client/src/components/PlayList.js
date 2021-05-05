@@ -1,12 +1,12 @@
 import React from "react";
 
-const FavouritePage = (props) => {
+const PlayList = (props) => {
   return (
     <div>
       <div>
-        Favourite List
+        Play List
       </div>
     </div>
   );
 };
-export default FavouritePage;
+export default PlayList;
