@@ -35,10 +35,10 @@ module.exports = {
             [username],
             (error, results, fields) => {
                 if(error){
-                    callback(error);
+                    callBack(error);
                 }
                 else{
-                    return callback(null, results[0]);
+                    return callBack(null, results[0]);
                 }
             }
         )
