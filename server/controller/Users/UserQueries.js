@@ -1,4 +1,6 @@
 const dbconnection = require('../../database/db_connection');
+const { autoGenerate } = require('../../helper/id');
+
 
 const mysql = require("mysql");
     // TODO: Global database config
@@ -13,7 +15,7 @@ module.exports = {
     register: (data, callBack) => {
         dbConfig.query(
             `insert into users(username, password, userTypeID) 
-                        values(?,?,1)`,
+                        values(?,?,rand())`,
             [
                 data.username,
                 data.password
@@ -46,7 +48,9 @@ module.exports = {
 
     getUsers: callBack => {
         dbConfig.query(
-          `SELECT userName, password from users`,
+          `SELECT userID, userName, password, users.userTypeID, userstype.typeName 
+           FROM users, userstype
+           WHERE users.userTypeID = userstype.userTypeID`,
           [],
           (error, results, fields) => {
             if (error) {
@@ -55,5 +59,5 @@ module.exports = {
             return callBack(null, results);
           }
         );
-      }
+      },
 };
