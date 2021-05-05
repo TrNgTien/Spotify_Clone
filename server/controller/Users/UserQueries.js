@@ -12,8 +12,8 @@ const mysql = require("mysql");
 module.exports = {
     register: (data, callBack) => {
         dbConfig.query(
-            `insert into users(username, password) 
-                        values(?,?)`,
+            `insert into users(username, password, userTypeID) 
+                        values(?,?,1)`,
             [
                 data.username,
                 data.password
@@ -29,7 +29,7 @@ module.exports = {
         )
     },
     
-    getUserByUserName: (username, callback) => {
+    getUserByUserName: (username, callBack) => {
         dbConfig.query(
             `SELECT * FROM users WHERE username = ?`,
             [username],
@@ -42,5 +42,18 @@ module.exports = {
                 }
             }
         )
-    }
+    },
+
+    getUsers: callBack => {
+        dbConfig.query(
+          `SELECT userName, password from users`,
+          [],
+          (error, results, fields) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      }
 };

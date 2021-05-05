@@ -1,6 +1,7 @@
-const { 
+const {
     register,
-    getUserByUserName 
+    getUserByUserName,
+    getUsers
     } = require("./UserQueries");  
 
 
@@ -55,5 +56,17 @@ module.exports = {
                 });
             }
         });
+    },
+    getUsers: (req, res) => {
+      getUsers((err, results) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        return res.json({
+          success: 1,
+          data: results
+        });
+      });
     },
 }
