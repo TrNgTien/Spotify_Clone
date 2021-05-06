@@ -5,17 +5,13 @@ import React, { useState } from "react";
 import "./styles/MusicBar.css";
 
 const MusicBar = (props) => {
-  let songName = props.musicBar;
-  const [isLoop, setIsLoop] = useState(false);
-  const isLooping = () => {
-    setIsLoop(!isLoop);
-  };
+  let { musicBar } = props;
   return (
     <div className="music-bar">
       <div className="song-name">
-        {songName[0].name}
-        {" "}
-        {songName[0].duration}
+        {musicBar[0].name} {musicBar[0].duration}
+        <br/>
+        {musicBar[0].singer}
       </div>
     </div>
   );

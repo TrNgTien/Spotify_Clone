@@ -12,23 +12,16 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
+import background from "../../assets/background.jpg";
 
-const RANDOM_PICTURES = "https://source.unsplash.com/random";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Developed in 2021."}
-    </Typography>
-  );
-}
+const PICTURE_LOGIN = background;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
   },
   image: {
-    backgroundImage: `url(${RANDOM_PICTURES})`,
+    backgroundImage: `url(${PICTURE_LOGIN})`,
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -56,9 +49,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   const classes = useStyles();
 
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        Developed in 2021.
+      </Typography>
+    );
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -99,11 +99,15 @@ export default function LoginForm() {
               label="Remember me"
             /> */}
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={() =>
+                props.history.push({
+                  pathname: "/main-page",
+                })
+              }
             >
               Sign In
             </Button>
