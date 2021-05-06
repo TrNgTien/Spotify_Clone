@@ -1,66 +1,60 @@
-const {
-    register,
-    getUserByUserName,
-    getUsers
-    } = require("./UserQueries");
+const { register, getUserByUserName, getUsers } = require("./UserQueries");
 
 module.exports = {
-    createUser: (req, res) => {
-        const body = req.body;
-        register(body, (err, results) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({
-                    success: 0,
-                    message: "Database connection error"
-                });
-            }
-            else{
-                return res.status(200).json({
-                    success: 1,
-                    message: "Register successfully!"  
-                });
-            }
-        });
-    },
+  login: (req, res) => {
+    let body = req.body;
+    getUserByUserName(body.userName, (err, results) => {
+      let result = body.password === results.password;
+      if (err) {
+        console.log(err);
+      } else {
+        if (!results) {
+          return res.status(404).json({
+            status: "Not Found!",
+            message: "User Name doesn't exist!",
+          });
+        } else if (result) {
+          return res.status(200).json({
+            status: "OK",
+            message: "Login successfully!",
+          });
+        } else {
+          return res.status(400).json({
+            status: "Bad Request!",
+            message: "Invalid User Name or Password",
+          });
+        }
+      }
+    });
+  },
 
+  //Function get data of users
+  getUsers: (req, res) => {
+    getUsers((err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.status(200).json({
+        message: "Login successfully!",
+        data: results,
+      });
+    });
+  },
 
-    login: (req, res) => {
-        const body = req.body;
-        getUserByUserName(body.userName, (err, results) => {
-            if (err) {
-                console.log(err);
-            }
-            if (!results) {
-                return res.json({
-                success: 0,
-                data: "Invalid User Name or Password"
-                });
-            }
-            const result = body.password === results.password;
-            if (result) {
-                results.password = undefined;
-                    return res.json({
-                    success: 1,
-                    message: "Login successfully!",
-                    });
-            } else {
-                return res.json({
-                success: 0,
-                message: "Invalid User Name or Password"
-                });
-            }
+  //Function register users
+  registerUser: (req, res) => {
+    const body = req.body;
+    register(body, (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          error: err,
         });
-    },
-    getUsers: (req, res) => {
-        getUsers((err, results) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            return res.json({
-                message: "Login successfully" 
-            })
+      } else {
+        return res.status(200).json({
+          message: "Register successfully!",
         });
-    },
-}
+      }
+    });
+  },
+};
