@@ -13,8 +13,11 @@ const dbConfig = mysql.createConnection({
 module.exports = {
   register: (data, callBack) => {
     dbConfig.query(
-      `INSERT INTO users(${ATTRIBUTE.userName}, ${ATTRIBUTE.password}, ${ATTRIBUTE.userTypeID}) 
-                        VALUES(?,?,0)`,
+      `INSERT INTO users
+        (${ATTRIBUTE.userName}, 
+        ${ATTRIBUTE.password}, 
+        ${ATTRIBUTE.userTypeID}) 
+      VALUES(?,?,0)`,
       [data.userName, data.password],
       (err, results, fields) => {
         if (err) {
@@ -42,9 +45,13 @@ module.exports = {
 
   getUsers: (callBack) => {
     dbConfig.query(
-      `SELECT userID, ${ATTRIBUTE.userName}, ${ATTRIBUTE.password}, users.${ATTRIBUTE.userTypeID}, userstype.${ATTRIBUTE.typeName} 
-           FROM users, userstype
-           WHERE users.${ATTRIBUTE.userTypeID} = userstype.${ATTRIBUTE.userTypeID}`,
+      `SELECT 
+        userID, ${ATTRIBUTE.userName}, 
+        ${ATTRIBUTE.password}, 
+        users.${ATTRIBUTE.userTypeID}, 
+        userstype.${ATTRIBUTE.typeName} 
+      FROM users, userstype
+      WHERE users.${ATTRIBUTE.userTypeID} = userstype.${ATTRIBUTE.userTypeID}`,
       [],
       (error, results, fields) => {
         if (error) {
