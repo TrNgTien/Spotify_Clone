@@ -18,7 +18,7 @@ module.exports = {
             else{
                 return res.status(200).json({
                     success: 1,
-                    data: results  
+                    message: "Register successfully!"  
                 });
             }
         });
@@ -34,7 +34,7 @@ module.exports = {
             if (!results) {
                 return res.json({
                 success: 0,
-                data: "Invalid userName or password"
+                data: "Invalid User Name or Password"
                 });
             }
             const result = body.password === results.password;
@@ -42,12 +42,12 @@ module.exports = {
                 results.password = undefined;
                     return res.json({
                     success: 1,
-                    message: "login successfully",
+                    message: "Login successfully!",
                     });
             } else {
                 return res.json({
                 success: 0,
-                data: "Invalid userName or password"
+                message: "Invalid User Name or Password"
                 });
             }
         });
@@ -59,7 +59,7 @@ module.exports = {
                 return;
             }
             return res.json({
-                data: results
+                message: "Login successfully" 
             })
         });
     },
