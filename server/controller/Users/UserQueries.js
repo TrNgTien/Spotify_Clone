@@ -15,7 +15,7 @@ module.exports = {
     register: (data, callBack) => {
         dbConfig.query(
             `insert into users(username, password, userTypeID) 
-                        values(?,?,rand())`,
+                        values(?,?,0)`,
             [
                 data.username,
                 data.password
