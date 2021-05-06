@@ -1,1 +1,1 @@
-export const API_CONNECTION = "http://localhost:8080";
+export const API_CONNECTION = "https://spotify-db.herokuapp.com";
