@@ -27,7 +27,7 @@ module.exports = {
 
     login: (req, res) => {
         const body = req.body;
-        getUserByUserName(body.username, (err, results) => {
+        getUserByUserName(body.userName, (err, results) => {
             if (err) {
                 console.log(err);
             }
