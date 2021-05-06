@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   registerMessage: {
-    color: "red",
+    color: "green",
     fontSize: "20px",
     marginTop: "1%",
     marginBottom: "-2%",
@@ -53,7 +53,7 @@ export default function RegisterForm(props) {
         props.history.push({
           pathname: "/",
         }),
-      1000
+      1500
     );
   };
   const handleRegister = async () => {
@@ -124,7 +124,7 @@ export default function RegisterForm(props) {
           </Grid>
           <Typography
             variant="h5"
-            className={classes.loginMessage}
+            className={classes.registerMessage}
             color="secondary"
           >
             {registerMessage}
