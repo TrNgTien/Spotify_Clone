@@ -1,7 +1,7 @@
 .main-control--page{
     background-color: #000000;
     color:#fefefe ;
-    width: 30%;
+    width: 20%;
 }
 .main-control--branding{
     opacity: 0.80;
@@ -115,7 +115,7 @@
     color: rgb(37, 35, 35);
     opacity: 0.75;
 }
-.main-control--favourite{
+.main-control--create-list{
     margin-top: 20px;
     background-color: rgb(69, 69, 182);
     opacity: 0.55;
@@ -124,17 +124,18 @@
     height: 40px;
     /* display: flex; */
 }
-.main-control--favourite > p {
+.main-control--create-list > p {
     margin-left: 50px;
     margin-top: -25px;
     font-size: 18px;
+    width: 100%;
 }
-.main-control--favourite:hover{
+.main-control--create-list:hover{
     opacity: 1;
     cursor: pointer;
     transition: 0.5s;
 }
-.main-control--favourite__icon{
+.main-control--create-list__icon{
     width: 25px;
     height: 25px;
     margin-left: 8px;

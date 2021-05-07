@@ -1,12 +1,8 @@
-const { 
+const {
     register,
-    getUserByUserName 
-    } = require("./UserQueries");  
-
-
-
-
-
+    getUserByUserName,
+    getUsers
+    } = require("./UserQueries");
 
 module.exports = {
     createUser: (req, res) => {
@@ -22,7 +18,7 @@ module.exports = {
             else{
                 return res.status(200).json({
                     success: 1,
-                    data: results
+                    data: results  
                 });
             }
         });
@@ -54,6 +50,17 @@ module.exports = {
                 data: "Invalid userName or password"
                 });
             }
+        });
+    },
+    getUsers: (req, res) => {
+        getUsers((err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            return res.json({
+                data: results
+            })
         });
     },
 }

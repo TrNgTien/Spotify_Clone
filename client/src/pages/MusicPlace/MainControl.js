@@ -1,24 +1,26 @@
-/**
- * Contributor : Tien (29/12/2020)
- * Main Function : Render layout left of the page
- */
-
 //Packages
-import React from "react";
+import React, { useState } from "react";
 import { FcMusic } from "react-icons/fc";
 import { IoMdHome } from "react-icons/io";
 import { ImBooks } from "react-icons/im";
 import { ImSearch } from "react-icons/im";
-import { AiFillHeart } from "react-icons/ai";
 import { AiFillPlusCircle } from "react-icons/ai";
+import UploadForm from "../../components/UploadForm";
 
 //Styles
 import "./styles/MainControl.css";
+import { Button } from "@material-ui/core";
 // import "./styles/compressed/MainControl.min.css";
 
 const MainControl = (props) => {
   const viewOptionControl = (viewOption) => {
     props.viewOptionMusic(viewOption);
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenForm = () => {
+    setIsOpen(!isOpen);
   };
   return (
     <div className="main-control--page">
@@ -48,21 +50,29 @@ const MainControl = (props) => {
       </div>
       <div className="main-control--playlist">
         <h2>PLAYLIST</h2>
-        <div className="main-control--create-list">
-          <AiFillPlusCircle className="main-control--create-list__icon" />
-          <p>Create Your List</p>
-        </div>
         <div
-          className="main-control--favourite"
+          className="main-control--create-list"
           onClick={(e) => viewOptionControl(e.target.id)}
           id="favourite"
         >
-          <AiFillHeart
+          <AiFillPlusCircle
             id="favourite"
-            className="main-control--favourite__icon"
+            className="main-control--create-list__icon"
           />
-          <p id="favourite">Favourite</p>
+          <p id="favourite">Create Your List</p>
         </div>
+        <Button
+          style={{
+            color: "white",
+            marginLeft: "25%",
+            marginTop: "25%",
+            backgroundColor: "dodgerblue",
+          }}
+          onClick={() => handleOpenForm()}
+        >
+          Upload Music
+        </Button>
+        {isOpen === true ? <UploadForm /> : null}
       </div>
     </div>
   );
