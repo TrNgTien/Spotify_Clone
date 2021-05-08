@@ -10,9 +10,15 @@ const dbConfig = mysql.createConnection({
 module.exports = {
   getAllSongs: (callBack) => {
     dbConfig.query(
-      `SELECT genreName, artistName, songName, uploadDate, numberOfLikes, duration
+      `
+      SELECT genreName, artistName, songName, uploadDate, numberOfLikes, duration
       FROM genres, songs, belongsto, artists, composeby
-      WHERE genres.genreID = belongsto.genreID AND belongsto.songID = songs.songID AND composeby.songID = songs.songID`,
+      WHERE genres.genreID = belongsto.genreID 
+      AND artists.artistID = composeby.artistID
+      AND belongsto.songID = songs.songID 
+      AND composeby.songID = songs.songID
+
+      `,
       [],
       (err, results, fields) => {
         if (err) {
@@ -25,8 +31,20 @@ module.exports = {
   },
   postSong: (data, callBack) => {
     dbConfig.query(
-      `INSERT INTO songs (songName, uploadDate, numberOfLikes, duration) VALUES (?,?,?,?)`,
-      [data.songName, data.uploadDate, data.numberOfLikes, data.duration],
+      `INSERT INTO songs (songName, uploadDate, numberOfLikes, duration) VALUES (?,?,?,?);
+      INSERT INTO artists (artistID,artistName) VALUES (?,?);
+      INSERT INTO genres (genreID,genreName) VALUES (?,?);
+      `,
+      [
+        data.songName,
+        data.uploadDate,
+        data.numberOfLikes,
+        data.duration,
+        data.artistID,
+        data.artistName,
+        data.genreID,
+        data.genreName,
+      ],
       (err, results, fields) => {
         if (err) {
           callBack(err);
