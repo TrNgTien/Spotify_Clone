@@ -1,7 +1,10 @@
-export const SONG_ATTRIBUTE = {
+module.exports = {
     songID: `songID`,
     songName: `songName`,
     uploadDate: `uploadDate`,
     numberOfLikes: `numberOfLikes`,
-    duration: `duration`
+    duration: `duration`,
+    genre: `genre`,
+    artist: `artist`,
+    likeBy: `likeBy`
 }
