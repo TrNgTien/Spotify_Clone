@@ -54,6 +54,7 @@ module.exports = {
       }
       return res.json({
         message: "Login successfully",
+        data: results,
       });
     });
   },
