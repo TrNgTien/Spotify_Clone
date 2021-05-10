@@ -1,7 +1,7 @@
 const sqlQuery = require("../../database/my_sql_query");
 const dbConnection = require("../../database/db_connection");
 
-import { SONG_ATTRIBUTE } from "./attribute";
+const  SONG_ATTRIBUTE = require( "./attribute");
 
 // Get all songs
 module.exports.getAllSongs = async (data, res) => {

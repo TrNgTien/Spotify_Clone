@@ -1,4 +1,4 @@
-export const SONG_ATTRIBUTE = {
+module.exports = {
     songID: `songID`,
     songName: `songName`,
     uploadDate: `uploadDate`,
