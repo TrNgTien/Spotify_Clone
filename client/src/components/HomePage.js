@@ -2,11 +2,11 @@
 import React from "react";
 
 //Styles
-// import "./styles/HomePage.css";
-import "./styles/compressed/HomePage.min.css"
+import "./styles/HomePage.css";
+// import "./styles/compressed/HomePage.min.css";
 
 const HomePage = (props) => {
-  const dataSong = props.dataSong;
+  const { dataSong } = props;
   const renderMusicGrid = () => {
     return (
       dataSong &&
@@ -24,9 +24,7 @@ const HomePage = (props) => {
   };
   return (
     <div>
-      <div className="home-page--view">
-        {renderMusicGrid()}
-      </div>
+      <div className="home-page--view">{renderMusicGrid()}</div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -11,6 +11,8 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import axios from "axios";
+// import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,11 +32,56 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  registerMessage: {
+    color: "green",
+    fontSize: "20px",
+    marginTop: "1%",
+    marginBottom: "-2%",
+  },
 }));
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
   const classes = useStyles();
+  const [registerMessage, setRegisterMessage] = useState();
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
 
+  const progressSuccessful = () => {
+    setRegisterMessage("Register successfully!");
+    setTimeout(
+      () =>
+        props.history.push({
+          pathname: "/",
+        }),
+      1500
+    );
+  };
+  const handleRegister = async () => {
+    try {
+      // axios.post(API_CONNECTION + `/userForm/register`);
+      if ((userName !== undefined, password !== undefined)) {
+        axios
+          .post(`http://localhost:8080/userForm/register`, {
+            userName: userName,
+            password: password,
+          })
+          .then((result) => {
+            if (result.data.message === "Register successfully!") {
+              progressSuccessful();
+            }
+          });
+      }
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  };
+
+  const onChangeUserName = (valueUserName) => {
+    setUserName(valueUserName);
+  };
+  const onChangePassword = (valuePassword) => {
+    setPassword(valuePassword);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -56,6 +103,8 @@ export default function RegisterForm() {
                 label="User Name"
                 name="userName"
                 autoComplete="userName"
+                value={userName}
+                onChange={(e) => onChangeUserName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -68,15 +117,24 @@ export default function RegisterForm() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => onChangePassword(e.target.value)}
               />
             </Grid>
           </Grid>
+          <Typography
+            variant="h5"
+            className={classes.registerMessage}
+            color="secondary"
+          >
+            {registerMessage}
+          </Typography>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => handleRegister()}
           >
             Sign Up
           </Button>

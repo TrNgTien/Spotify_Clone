@@ -9,6 +9,7 @@
 //   password: "4be56a74",
 //   database: "heroku_1fcc54407741c0e",
 // });
+const  SONG_ATTRIBUTE = require( "./attribute");
 
 // Get all songs
 // module.exports.getSongs = async (req, res) => {

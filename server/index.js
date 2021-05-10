@@ -8,6 +8,7 @@ const routes = require("./routes/index");
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Default port
 // app.get("/", (req, res) => res.send({ error: true, message: "Hello" }));
