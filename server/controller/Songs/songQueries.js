@@ -7,6 +7,14 @@ const dbConfig = mysql.createConnection({
   database: "heroku_1fcc54407741c0e",
 });
 
+const queryCallBackHandle = (err, results, fields, callBack) => {
+  if (err) {
+    callBack(err);
+  } else {
+    return callBack(null, results);
+  }
+};
+
 module.exports = {
   getAllSongs: (callBack) => {
     dbConfig.query(
@@ -17,41 +25,33 @@ module.exports = {
       AND artists.artistID = composeby.artistID
       AND belongsto.songID = songs.songID 
       AND composeby.songID = songs.songID
-
       `,
       [],
-      (err, results, fields) => {
-        if (err) {
-          callBack(err);
-        } else {
-          return callBack(null, results);
-        }
-      }
+      (err, results, fields) =>
+        queryCallBackHandle(err, results, fields, callBack)
     );
   },
-  postSong: (data, callBack) => {
+  postSongBasicInfo: (data, callBack) => {
     dbConfig.query(
-      `INSERT INTO songs (songName, uploadDate, numberOfLikes, duration) VALUES (?,?,?,?);
-      INSERT INTO artists (artistID,artistName) VALUES (?,?);
-      INSERT INTO genres (genreID,genreName) VALUES (?,?);
-      `,
-      [
-        data.songName,
-        data.uploadDate,
-        data.numberOfLikes,
-        data.duration,
-        data.artistID,
-        data.artistName,
-        data.genreID,
-        data.genreName,
-      ],
-      (err, results, fields) => {
-        if (err) {
-          callBack(err);
-        } else {
-          return callBack(null, results);
-        }
-      }
+      `INSERT INTO songs (songName, uploadDate, numberOfLikes, duration) VALUES (?,?,?,?)`,
+      [data.songName, data.uploadDate, data.numberOfLikes, data.duration],
+      (err, results, fields) => queryCallBackHandle(err, results, fields)
+    );
+  },
+  postSongArtistInfo: (data, callBack) => {
+    dbConfig.query(
+      `INSERT INTO artists (artistID,artistName) VALUES (?,?)`,
+      [data.artistID, data.artistName],
+      (err, results, fields) =>
+        queryCallBackHandle(err, results, fields, callBack)
+    );
+  },
+  postSongGenreInfo: (data, callBack) => {
+    dbConfig.query(
+      `INSERT INTO genres (genreID,genreName) VALUES (?,?)`,
+      [data.genreID, data.genreName],
+      (err, results, fields) =>
+        queryCallBackHandle(err, results, fields, callBack)
     );
   },
 };

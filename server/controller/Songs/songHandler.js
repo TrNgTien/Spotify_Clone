@@ -2,14 +2,13 @@
 // const sqlQuery = require("../../database/my_sql_query");
 // const dbConnection = require("../../database/db_connection");
 
-
 // const dbConfig = mysql.createConnection({
 //   user: "b4bb330a3f009b",
 //   host: "eu-cdbr-west-01.cleardb.com",
 //   password: "4be56a74",
 //   database: "heroku_1fcc54407741c0e",
 // });
-const  SONG_ATTRIBUTE = require( "./attribute");
+const SONG_ATTRIBUTE = require("./attribute");
 
 // Get all songs
 // module.exports.getSongs = async (req, res) => {
@@ -28,9 +27,14 @@ const  SONG_ATTRIBUTE = require( "./attribute");
 //     });
 //   }
 // };
-const { getAllSongs, postSong } = require("./songQueries");
+const {
+  getAllSongs,
+  postSongBasicInfo,
+  postSongArtistInfo,
+  postSongGenreInfo,
+} = require("./songQueries");
 const song_att = require("../Songs/attribute");
-function RequestHandler(err, results, res) {
+function getRequestHandler(err, results, res) {
   if (err) {
     console.log(err);
     return res.status(500).json({
@@ -43,16 +47,29 @@ function RequestHandler(err, results, res) {
     });
   }
 }
+function postRequestHandler(err, res) {
+  if (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  } else {
+    return res.status(200).json({
+      message: "Connection Successfully!",
+    });
+  }
+}
 
 module.exports = {
   getSongs: (req, res) => {
-    getAllSongs((err, results) => RequestHandler(err, results, res));
-    
+    getAllSongs((err, results) => getRequestHandler(err, results, res));
   },
   postSongs: (req, res) => {
     let body = req.body;
-    console.log("req body", body)
-    postSong(body, (err, results) => RequestHandler(err, results, res));
+    console.log("req body", body);
+    postSongBasicInfo(body, (err, results) => postRequestHandler(err, res));
+    postSongArtistInfo(body, (err, results) => postRequestHandler(err, res));
+    postSongGenreInfo(body, (err, results) => postRequestHandler(err, res));
   },
 };
 
