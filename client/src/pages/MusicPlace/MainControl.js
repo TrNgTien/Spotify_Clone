@@ -20,7 +20,6 @@ const MainControl = (props) => {
     props.viewOptionMusic(viewOption);
   };
 
-
   const handleOpenForm = () => {
     dispatch(setOpenModal(true));
   };
@@ -42,13 +41,17 @@ const MainControl = (props) => {
         <IoMdHome className="main-control--icon-home" />
         <p>Home Page</p>
       </div>
-      <div className="main-control--searching__control">
+      {/* <div className="main-control--searching__control">
         <ImSearch className="main-control--icon-navigator" />
         <p>Searching...</p>
-      </div>
-      <div className="main-control--library__control">
-        <ImBooks className="main-control--icon-navigator" />
-        <p>Library</p>
+      </div> */}
+      <div
+        className="main-control--library__control"
+        onClick={(e) => viewOptionControl(e.target.id)}
+        id="filter"
+      >
+        <ImSearch id="filter" className="main-control--icon-navigator" />
+        <p id="filter">Filter</p>
       </div>
       <div className="main-control--playlist">
         <h2>PLAYLIST</h2>
