@@ -14,8 +14,8 @@ const MainRoute = () => {
     <Router>
       <Route exact path="/main-page" component={DashBoard} />
       <Route exact path="/register-form" component={RegisterForm} />
-      <Route exact path="/" component={LoginForm} />
       <Route exact path="/song-filter" component={FilterPage} />
+      <Route exact path="/" component={LoginForm} />
     </Router>
   );
 };
