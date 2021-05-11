@@ -1,6 +1,5 @@
 const mysql = require("mysql");
 
-
 const dbConfig = mysql.createConnection({
   user: "b4bb330a3f009b",
   host: "eu-cdbr-west-01.cleardb.com",
@@ -9,51 +8,44 @@ const dbConfig = mysql.createConnection({
 });
 
 module.exports = {
+  getPlaylists: (data, callBack) => {
+    dbConfig.query(
+      `SELECT songName, duration, uploadDate, numberOfLikes
+      FROM songs, hasplaylists, users, playlists
+      WHERE songs.songID = hasplaylists.songID 
+      AND hasplaylists.playlistID = playlists.playlistID
+      AND playlists.userID = users.userID`,
+      [],
+      (error, results) => {
+        if (error) callBack(error, null);
+        else return callBack(null, results);
+      }
+    );
+  },
   postPlaylists: (data, callBack) => {
     dbConfig.query(
       `INSERT INTO playlists (playlistName)
       VALUES(?)`,
       [data.playlistName],
-      (err, results, fields) => {
-        if (err) {
-          callBack(err);
-        } else {
-          return callBack(null, results);
-        }
-      }
-    );
-  },
-  getPlaylists: (callBack) => {
-    dbConfig.query(
-      `SELECT songName, duration, uploadDate, numberOfLike
-      FROM users, songs, playlists, hasPlaylist 
-      WHERE songs.songID = hasPlaylist.songID 
-      AND hasPlaylists.playlistID = playlists.playlistID
-      AND playlists.userID = users.userID`,
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        } else {
-          return callBack(null, results);
-        }
+      (err, results) => {
+        if (err) callBack(err, null);
+        else return callBack(null, results);
       }
     );
   },
 
-  deleteSongs: (callBack) => {
+  deleteSongs: (data, callBack) => {
     dbConfig.query(
-      `DELETE songName, duration, uploadDate, numberOfLike
-      FROM users, songs, playlists, hasPlaylist
+      `DELETE FROM users, songs, playlists, hasPlaylist
       WHERE songs.songID = hasPlaylist.songID
       AND hasPlaylists.playlistID = playlists.playlistID
-      AND playlists.userID = users.userID`,
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        } else {
-          return callBack(null, results);
-        }
-    }
+      AND playlists.userID = users.userID
+      AND songName = ?`,
+      [data.songName],
+      (error, results) => {
+        if (error) callBack(error, null);
+        else return callBack(null, results);
+      }
     );
-}
-}
+  },
+};
