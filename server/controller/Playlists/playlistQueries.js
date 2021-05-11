@@ -27,7 +27,7 @@ module.exports = {
     dbConfig.query(
       `SELECT songName, duration, uploadDate, numberOfLike
       FROM users, songs, playlists, hasPlaylist
-      WHERE songs.songID = hasPlaylist.songID
+      WHERE songs.songID = hasPlaylist.songID 
       AND hasPlaylists.playlistID = playlists.playlistID
       AND playlists.userID = users.userID`,
       (error, results, fields) => {

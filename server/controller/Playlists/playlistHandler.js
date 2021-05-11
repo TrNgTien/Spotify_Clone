@@ -15,7 +15,7 @@ const {postPlaylist, getPlaylist, deleteSong} = require("./playlistQueries");
   function getHandler(err, res) {
     if (err) {
       console.log(err);
-      return res.status(500).json({
+      return res.status(500).json({ 
         message: "Internal server error",
       });
     } else {
