@@ -1,12 +1,10 @@
-const { register, getUserByUserName, getUsers } = require("./UserQueries");
-
 const sqlQuery = require("../../database/my_sql_query");
 const dbConnection = require("../../database/db_connection");
 const USER_ATTRIBUTE = require("./userAttribute");
 
 
 module.exports.register = async(req, res) => {
-  const body = req.body;
+  let userName = req.body.userName;;
   try{
     let connection = await dbConnection();
     let registerQuery = 
@@ -17,13 +15,21 @@ module.exports.register = async(req, res) => {
         ${USER_ATTRIBUTE.userTypeID}
       ) 
       VALUES 
-      ('${body.userName}', '${body.password}', 0)`;
+      ('${userName}', '${userName}', 0)`;
+    let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${userName}'`;
+    let getUserName = await sqlQuery(connection, getUserNameQuery);  
     let createUser = await sqlQuery(connection, registerQuery);
-    console.log(createUser);
     connection.end();
-    return res.status(200).json({
-      message: "Register Successfully"
-    });
+    if(getUserName.length !== 0){
+      res.json({
+        message: "Username has already existed"
+      })
+    }   
+    else {
+      res.json({
+        message: "Register Successfully"
+      })
+    }
   }
   catch(error){
     console.log(error);
@@ -33,32 +39,24 @@ module.exports.register = async(req, res) => {
   }
 };
 
+
+
 module.exports.login = async (req, res) => {
-  const body = req.body;
   try {
+    let userName = req.body.userName;
+    let password = req.body.password;
     let connection = await dbConnection();
-    let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${body.userName}'`;
-    let getPasswordQuery = `SELECT password FROM users WHERE password = '${body.password}'`;
+    let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${userName}'`;
+    let getPasswordQuery = `SELECT password FROM users WHERE password = '${password}'`;
     let getUserName = await sqlQuery(connection, getUserNameQuery);
     let getPassword = await sqlQuery(connection, getPasswordQuery);
-    connection.end();
-    //  TRY TO REFACTOR LOGIN (MY LOGIC, BUT IT CANNOT USE WHEN MANY USERS HAVE THE SAME PASSWORD)
-    //let user_name = JSON.stringify(getUserName);
-    //let username1 = user_name.indexOf(body.userName);
-    //let username2 = user_name.lastIndexOf('"');
-    //let final_userName = user_name.slice(username1, username2);
-    //let password = JSON.stringify(getPassword);
-    //let password1 = password.indexOf(body.password);
-    //let password2 = password.lastIndexOf('"');
-    //let final_password = user_name.slice(password1, password2);
-    //console.log(getUserName);
-    //console.log(getPassword);
-    if(getUserName !== body.userName){
+    connection.end();    
+    if(getUserName.length === 0){
       return res.status(500).json({
         message: "Invalid userName or password"
       })
     }
-    else if(getPassword !== body.password){
+    else if(getPassword.length === 0){
       return res.status(500).json({
         message: "Invalid userName or password"
       })
