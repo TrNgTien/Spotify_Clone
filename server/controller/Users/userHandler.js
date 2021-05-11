@@ -1,61 +1,95 @@
 const { register, getUserByUserName, getUsers } = require("./UserQueries");
 
-module.exports = {
-  createUser: (req, res) => {
-    const body = req.body;
-    register(body, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: 0,
-          message: "Database connection error",
-        });
-      } else {
-        return res.status(200).json({
-          success: 1,
-          message: "Register successfully!",
-        });
-      }
-    });
-  },
+const sqlQuery = require("../../database/my_sql_query");
+const dbConnection = require("../../database/db_connection");
+const USER_ATTRIBUTE = require("./userAttribute");
 
-  login: (req, res) => {
-    const body = req.body;
-    getUserByUserName(body.userName, (err, results) => {
-      if (err) {
-        console.log(err);
-      }
-      if (!results) {
-        return res.json({
-          success: 0,
-          data: "Invalid User Name or Password",
-        });
-      }
-      const result = body.password === results.password;
-      if (result) {
-        results.password = undefined;
-        return res.json({
-          success: 1,
-          message: "Login successfully!",
-        });
-      } else {
-        return res.json({
-          success: 0,
-          message: "Invalid User Name or Password",
-        });
-      }
+
+module.exports.register = async(req, res) => {
+  const body = req.body;
+  try{
+    let connection = await dbConnection();
+    let registerQuery = 
+    `INSERT INTO users
+      (
+        ${USER_ATTRIBUTE.userName}, 
+        ${USER_ATTRIBUTE.password}, 
+        ${USER_ATTRIBUTE.userTypeID}
+      ) 
+      VALUES 
+      ('${body.userName}', '${body.password}', 0)`;
+    let createUser = await sqlQuery(connection, registerQuery);
+    console.log(createUser);
+    connection.end();
+    return res.status(200).json({
+      message: "Register Successfully"
     });
-  },
-  getUsers: (req, res) => {
-    getUsers((err, results) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      return res.json({
-        message: "Login successfully",
-        data: results,
-      });
+  }
+  catch(error){
+    console.log(error);
+    res.status(500).json({
+      message: error
     });
-  },
+  }
+};
+
+module.exports.login = async (req, res) => {
+  const body = req.body;
+  try {
+    let connection = await dbConnection();
+    let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${body.userName}'`;
+    let getPasswordQuery = `SELECT password FROM users WHERE password = '${body.password}'`;
+    let getUserName = await sqlQuery(connection, getUserNameQuery);
+    let getPassword = await sqlQuery(connection, getPasswordQuery);
+    connection.end();
+    //  TRY TO REFACTOR LOGIN (MY LOGIC, BUT IT CANNOT USE WHEN MANY USERS HAVE THE SAME PASSWORD)
+    //let user_name = JSON.stringify(getUserName);
+    //let username1 = user_name.indexOf(body.userName);
+    //let username2 = user_name.lastIndexOf('"');
+    //let final_userName = user_name.slice(username1, username2);
+    //let password = JSON.stringify(getPassword);
+    //let password1 = password.indexOf(body.password);
+    //let password2 = password.lastIndexOf('"');
+    //let final_password = user_name.slice(password1, password2);
+    //console.log(getUserName);
+    //console.log(getPassword);
+    if(getUserName !== body.userName){
+      return res.status(500).json({
+        message: "Invalid userName or password"
+      })
+    }
+    else if(getPassword !== body.password){
+      return res.status(500).json({
+        message: "Invalid userName or password"
+      })
+    }
+    else {
+      return res.status(200).json({
+        message: "login successfully"
+      })
+    }
+  }
+  catch(error) {
+    console.log(error);
+    res.status(500).json({
+      message: error
+    })
+  };
+}
+
+module.exports.getUsers = async (req, res) => {
+    try {
+      let connection = await dbConnection();
+      let getUsersQuery = `SELECT * FROM users`;
+      let getUser = await sqlQuery(connection, getUsersQuery);
+      connection.end();
+      console.log(getUser);
+      return res.status(200).json({ data: getUser, message: "OK!" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+        message: "error",
+        error: error,
+        });
+    }
 };
