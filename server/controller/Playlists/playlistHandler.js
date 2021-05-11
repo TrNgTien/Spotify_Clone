@@ -1,6 +1,6 @@
 const db_connection = require("../../database/db_connection");
 const sqlQuery = require("../../database/my_sql_query");
-
+const ATTRIBUTE = require("./playlistAttribute");
 module.exports.postPlaylists = async (req, res) => {
   try {
     let playlistName = req.body.playlistName;
@@ -23,16 +23,19 @@ module.exports.postPlaylists = async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.json({
-      e: e,
+      error: e,
     });
   }
 };
 module.exports.getPlaylists = async (req, res, next) => {
   try {
     let connection = await db_connection();
-    let query = `SELECT playlistName, songs.songID, songName, uploadDate, 
-          numberOfLikes, 
-          duration    
+    let query = `SELECT ${ATTRIBUTE.playlistName}, 
+          songs.${ATTRIBUTE.songID},
+          ${ATTRIBUTE.songName}, 
+          ${ATTRIBUTE.uploadDate}, 
+          ${ATTRIBUTE.numberOfLikes}, 
+          ${ATTRIBUTE.duration}    
           FROM  users, playlists, hasplaylists, songs
           WHERE playlists.userID = users.userID
           AND  hasplaylists.playlistID = playlists.playlistID
@@ -49,7 +52,7 @@ module.exports.getPlaylists = async (req, res, next) => {
   } catch (e) {
     console.log(e);
     return res.json({
-      e: e,
+      error: e,
     });
   }
 };
@@ -68,7 +71,7 @@ module.exports.deleteSongs = async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.json({
-      e: e,
+      error: e,
     });
   }
 };
