@@ -6,7 +6,7 @@ const {postPlaylist, getPlaylist, deleteSong} = require("./playlistQueries");
         message: "Internal server error",
       });
     } else {
-      return res.status(200).json({
+      return res.status(200).json({ 
         message: "Connection Successfully!",
         data: results,
       });

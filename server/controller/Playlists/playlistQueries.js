@@ -26,7 +26,7 @@ module.exports = {
   getPlaylists: (callBack) => {
     dbConfig.query(
       `SELECT songName, duration, uploadDate, numberOfLike
-      FROM users, songs, playlists, hasPlaylist
+      FROM users, songs, playlists, hasPlaylist 
       WHERE songs.songID = hasPlaylist.songID 
       AND hasPlaylists.playlistID = playlists.playlistID
       AND playlists.userID = users.userID`,
