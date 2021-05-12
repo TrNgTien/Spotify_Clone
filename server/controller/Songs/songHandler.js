@@ -44,19 +44,16 @@ module.exports.postSongs = async (req, res) => {
   // );
   try {
     let connection = await dbConnection();
-    let getSongIdQuery = `SELECT songID FROM songs ORDER BY songID DESC LIMIT 1`;
     let getArtistIdQuery = `SELECT artistID FROM artists ORDER BY artistID DESC LIMIT 1`;
     let getGenreIdQuery = `SELECT genreID FROM genres ORDER BY genreID DESC LIMIT 1`;
 
-    let getSongIdQueryResult = await sqlQuery(connection, getSongIdQuery);
     let getArtistIdQueryResult = await sqlQuery(connection, getArtistIdQuery);
     let getGenreIdQueryResult = await sqlQuery(connection, getGenreIdQuery);
 
-    let newestSongId = getSongIdQueryResult[0].songID + 1;
     let newestArtistId = getArtistIdQueryResult[0].artistID + 1;
     let newestGenreId = getGenreIdQueryResult[0].genreID + 1;
 
-    let postSongQueryBasic = `INSERT INTO songs (songID, songName, uploadDate, numberOfLikes, duration) VALUES (${newestSongId},?,?,?)`;
+    let postSongQueryBasic = `INSERT INTO songs (songName, uploadDate, numberOfLikes, duration) VALUES (?,?,?)`;
     let postSongQueryArtist = `INSERT INTO artists (artistID, artistName) VALUES (${newestArtistId},?)`;
     let postSongQueryGenre = `INSERT INTO genres (genreID, genreName) VALUES (${newestGenreId},?)`;
 
