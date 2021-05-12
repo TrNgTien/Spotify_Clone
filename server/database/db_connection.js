@@ -4,7 +4,7 @@ const dbConfig = {
   host: "eu-cdbr-west-01.cleardb.com",
   password: "4be56a74",
   database: "heroku_1fcc54407741c0e",
-  multipleStatements: true
+  // multipleStatements: true
 };
 
 module.exports = async () =>
