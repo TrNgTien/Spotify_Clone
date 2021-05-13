@@ -1,23 +1,29 @@
 const sqlQuery = require("../../database/my_sql_query");
 const dbConnection = require("../../database/db_connection");
+const SongAttribute = require("../../model/Song");
 
-const  SONG_ATTRIBUTE = require( "./attribute");
+// const {
+//   getAllSongs,
+//   postSongBasicInfo,
+//   postSongArtistInfo,
+//   postSongGenreInfo,
+// } = require("./songQueries");
 
-// Get all songs
-module.exports.getAllSongs = async (data, res) => {
+// Get songs
+module.exports.getSongs = async (req, res) => {
   try {
     let connection = await dbConnection();
     let getSongsQuery = `
-      SELECT 
-        ${SONG_ATTRIBUTE.songName}, 
-        ${SONG_ATTRIBUTE.uploadDate}, 
-        ${SONG_ATTRIBUTE.numberOfLikes}, 
-        ${SONG_ATTRIBUTE.duration} 
-      FROM songs`;
-    let getSongs = await sqlQuery(connection, getSongsQuery);
-
+      SELECT genreName, artistName, songName, uploadDate, numberOfLikes, duration
+      FROM genres, songs, belongsto, artists, composeby
+      WHERE genres.genreID = belongsto.genreID 
+      AND artists.artistID = composeby.artistID
+      AND belongsto.songID = songs.songID 
+      AND composeby.songID = songs.songID
+    `;
+    let result = await sqlQuery(connection, getSongsQuery);
     connection.end();
-    return res.status(200).send(getSongs);
+    return res.status(200).json({ data: result, message: "OK!" });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -27,28 +33,53 @@ module.exports.getAllSongs = async (data, res) => {
   }
 };
 
-// Dealing when admin post song
-module.exports.postSong = async (data, res) => {
+// Post songs
+module.exports.postSongs = async (req, res) => {
+  let songParamBody = req.body;
+  // let songParamForQuery = new SongAttribute(
+  //   songParamBody.songName,
+  //   songParamBody.uploadDate,
+  //   songParamBody.numberOfLikes,
+  //   songParamBody.duration
+  // );
   try {
     let connection = await dbConnection();
-    let postSongsQuery = `
-      INSERT INTO songs(
-        ${SONG_ATTRIBUTE.songName}, 
-        ${SONG_ATTRIBUTE.uploadDate}, 
-        ${SONG_ATTRIBUTE.numberOfLikes}, 
-        ${SONG_ATTRIBUTE.duration}
-      )
-      VALUES(
-        ${data.songName},
-        ${data.uploadDate},
-        ${data.numberOfLikes},
-        ${data.duration}
-      )
-    `;
-    let postSong = await sqlQuery(connection, postSongsQuery);
+    let getArtistIdQuery = `SELECT artistID FROM artists ORDER BY artistID DESC LIMIT 1`;
+    let getGenreIdQuery = `SELECT genreID FROM genres ORDER BY genreID DESC LIMIT 1`;
+
+    let getArtistIdQueryResult = await sqlQuery(connection, getArtistIdQuery);
+    let getGenreIdQueryResult = await sqlQuery(connection, getGenreIdQuery);
+
+    let newestArtistId = getArtistIdQueryResult[0].artistID + 1;
+    let newestGenreId = getGenreIdQueryResult[0].genreID + 1;
+
+    let postSongQueryBasic = `INSERT INTO songs (songName, uploadDate, numberOfLikes, duration) VALUES (?,?,?)`;
+    let postSongQueryArtist = `INSERT INTO artists (artistID, artistName) VALUES (${newestArtistId},?)`;
+    let postSongQueryGenre = `INSERT INTO genres (genreID, genreName) VALUES (${newestGenreId},?)`;
+
+    let postSongQueryBasicResult = await sqlQuery(
+      connection,
+      postSongQueryBasic,
+      [
+        songParamBody.songName,
+        songParamBody.uploadDate,
+        songParamBody.numberOfLikes,
+        songParamBody.duration,
+      ]
+    );
+    let postSongQueryArtistResult = await sqlQuery(
+      connection,
+      postSongQueryArtist,
+      [songParamBody.artistName]
+    );
+    let postSongQueryGenreResult = await sqlQuery(
+      connection,
+      postSongQueryGenre,
+      [songParamBody.genreName]
+    );
 
     connection.end();
-    return res.status(200).send(postSong);
+    return res.status(200).json({ data: result, message: "OK!" });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -57,3 +88,80 @@ module.exports.postSong = async (data, res) => {
     });
   }
 };
+
+function getRequestHandler(err, results, res) {
+  if (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  } else {
+    return res.status(200).json({
+      message: "Connection Successfully!",
+      data: results,
+    });
+  }
+}
+function postRequestHandler(err, res) {
+  if (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  } else {
+    return res.status(200).json({
+      message: "Connection Successfully!",
+    });
+  }
+}
+
+// module.exports = {
+//   getSongs: (req, res) => {
+//     getAllSongs((err, results) => getRequestHandler(err, results, res));
+//   },
+//   postSongs: (req, res) => {
+//     let body = req.body;
+//     console.log("req body", body);
+//     postSongBasicInfo(body, (err, results) => postRequestHandler(err, res));
+//     postSongArtistInfo(body, (err, results) => postRequestHandler(err, res));
+//     postSongGenreInfo(body, (err, results) => postRequestHandler(err, res));
+//   },
+// };
+
+// // module.exports.getAllSongs = (req, res) => {
+// //   // Gửi lên server
+// //   const body = res.body;
+
+// // }
+
+// // Dealing when admin post song
+// module.exports.postSong = async (data, res) => {
+//   try {
+//     let connection = await dbConfig();
+//     let postSongsQuery = `
+//       INSERT INTO songs(
+//         ${song_att.songName},
+//         ${song_att.uploadDate},
+//         ${song_att.numberOfLikes},
+//         ${song_att.duration}
+//       )
+//       VALUES(
+//         ${data.songName},
+//         ${data.uploadDate},
+//         ${data.numberOfLikes},
+//         ${data.duration}
+//       )
+//     `;
+
+//     let postSong = await sqlQuery(connection, postSongsQuery);
+
+//     connection.end();
+//     return res.status(200).send(postSong);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       message: "error",
+//       error: error,
+//     });
+//   }
+// };
