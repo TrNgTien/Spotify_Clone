@@ -11,15 +11,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HeaderBar() {
+export default function HeaderBar(props) {
   const classes = useStyles();
-
+  const { userName } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.userName} variant="h6" noWrap>
-            User Name
+            {userName}
           </Typography>
         </Toolbar>
       </AppBar>

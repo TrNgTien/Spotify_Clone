@@ -1,38 +1,53 @@
 //Packages
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { DATA_SONG } from "../../data/testing-data";
 import MainControl from "./MainControl";
 import MusicGrid from "./MusicGrid";
-import MusicBar from "./MusicBar";
+// import MusicBar from "./MusicBar";
 import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 import { useSelector } from "react-redux";
 import UploadForm from "../../components/UploadForm";
-
-
-import {_getAllSongs} from '../../api/Song'
+import { API_LOCAL_CONNECTION } from "../../constants/BE_CONNECTION";
+import { _getAllSongs } from "../../api/Song";
 
 //Styles
-import "./styles/DashBoard.css";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+// import "./styles/DashBoard.css";
+import "./styles/compressed/DashBoard.min.css";
+
+const useStyles = makeStyles(() => ({
+  waiting: {
+    marginLeft: "2%",
+  },
+}));
 
 const DashBoard = (props) => {
-  const [dataSong, setDataSong] = useState(DATA_SONG);
+  const classes = useStyles();
+  const [dataSong, setDataSong] = useState([]);
   const [viewOption, setViewOption] = useState();
   const [isLoaded, setIsLoaded] = useState(true);
-  const isOpenModal = useSelector((state) => state.modal);
+  const isOpenModal = useSelector((state) => state.modal.modal);
+  const [userData, setUserData] = useState([]);
+  const userName = props.location.userName;
+  const password = props.location.password;
 
-  const getData = async () => {
-    const response = await axios.get(`${API_CONNECTION}`);
-    const data = response.data;
-    setDataSong(data);
-    setIsLoaded(true);
+  const getUserInfo = async () => {
+    let response = await axios.get(
+      `${API_LOCAL_CONNECTION}/userForm/getUser?userName=${userName}&password=${password}`
+    );
+    let data = response.data.data.typeName;
+    setUserData(data);
   };
-
   const getAllSongs = React.useCallback(() => _getAllSongs());
-  React.useEffect(() => getAllSongs().then(res => {
-    let newSongData = [].concat(res.data.data);
-    setDataSong(newSongData)
-  }),[])
+  useEffect(() => {
+    getUserInfo();
+    getAllSongs().then((res) => {
+      let newSongData = [].concat(res.data.data);
+      setDataSong(newSongData);
+      setIsLoaded(false);
+    });
+  }, []);
 
   /**
    * @param option which user want to show
@@ -41,20 +56,26 @@ const DashBoard = (props) => {
   const viewOptionMusic = (viewOption) => {
     setViewOption(viewOption);
   };
-  return (
+  return isLoaded === true ? (
+    <Typography className={classes.waiting} variant="h6" noWrap>
+      Waiting...
+    </Typography>
+  ) : (
     <div className="dash-board">
       <div className="dash-board__screen">
-      {isOpenModal === true ? <UploadForm /> : null}
+        {isOpenModal === true ? <UploadForm /> : null}
         <MainControl
+          userData={userData}
           viewOptionMusic={(viewOption) => viewOptionMusic(viewOption)}
         />
-        {isLoaded === true ? (
-          <MusicGrid dataSong={dataSong} viewOption={viewOption} />
-        ) : (
-          "Waiting..."
-        )}
+
+        <MusicGrid
+          userName={userName}
+          dataSong={dataSong}
+          viewOption={viewOption}
+        />
       </div>
-      <MusicBar musicBar={dataSong} />
+      {/* <MusicBar musicBar={dataSong} /> */}
     </div>
   );
 };

@@ -2,20 +2,22 @@
 import React from "react";
 
 //Styles
-import "./styles/HomePage.css";
-// import "./styles/compressed/HomePage.min.css";
+// import "./styles/HomePage.css";
+import "./styles/compressed/HomePage.min.css";
 
 const HomePage = (props) => {
   const { dataSong } = props;
   const renderMusicGrid = () => {
     return (
       dataSong &&
-      dataSong.map(({ songName, artistName }, index) => {
+      dataSong.map(({ songID,songName, artistName, genreName, duration }) => {
         return (
-          <div key={index}>
+          <div key={songID}>
             <div className="home-page--music-card">
               <p className="home-page--music-card__song">{songName}</p>
               <p className="home-page--music-card__singer">{artistName}</p>
+              <p className="home-page--music-card__singer">{genreName}</p>
+              <p className="home-page--music-card__singer">{duration}</p>
             </div>
           </div>
         );

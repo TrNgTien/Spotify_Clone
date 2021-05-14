@@ -5,17 +5,17 @@ import "../../pages/MusicPlace/styles/FilterPage.css";
 function FilterSelect(props) {
   if (props.listType === "artist") {
     return (
-      <>
+      <div>
         <select
           onChange={(artistOpt) => props.onChangeArtist(artistOpt.target.value)}
           className="select-box"
         >
           {props.filterOptions &&
-            props.filterOptions.map((opt) => (
-              <option id={opt.artistID}>{opt.artistName}</option>
+            props.filterOptions.map((opt, index) => (
+              <option key={index} id={opt.artistID}>{opt.artistName}</option>
             ))}
         </select>
-      </>
+      </div>
     );
   }
   if (props.listType === "genre") {
@@ -26,8 +26,8 @@ function FilterSelect(props) {
           className="select-box"
         >
           {props.filterOptions &&
-            props.filterOptions.map((opt) => (
-              <option id={opt.genreID}>{opt.genreName}</option>
+            props.filterOptions.map((opt, index) => (
+              <option key={index} id={opt.genreID}>{opt.genreName}</option>
             ))}
         </select>
       </>
