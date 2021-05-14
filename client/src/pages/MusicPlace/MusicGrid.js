@@ -19,7 +19,7 @@ const MusicGrid = (props) => {
       ) : optionClicked === "homePage" ? (
         <HomePage dataSong={dataSong} />
       ) : optionClicked === "filter" ? (
-        <FilterPage />
+        <FilterPage songList={dataSong} />
       ) : (
         <HomePage dataSong={dataSong} />
       )}
