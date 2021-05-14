@@ -1,0 +1,1 @@
+export const GET_ALL_SONG = () => `http://localhost:8080/songs/getAllSongs`;
