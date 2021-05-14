@@ -63,7 +63,7 @@ module.exports.login = async (req, res) => {
     }
     else {
       return res.status(200).json({
-        message: "login successfully"
+        message: "Login Successfully"
       })
     }
   }
@@ -81,7 +81,6 @@ module.exports.getUsers = async (req, res) => {
       let getUsersQuery = `SELECT * FROM users`;
       let getUser = await sqlQuery(connection, getUsersQuery);
       connection.end();
-      console.log(getUser);
       return res.status(200).json({ data: getUser, message: "OK!" });
     } catch (error) {
         console.log(error);
