@@ -56,22 +56,22 @@ module.exports.getPlaylists = async (req, res, next) => {
     });
   }
 };
-module.exports.deleteSongs = async (req, res) => {
-  let songDelete = req.body.songName;
-  try {
-    let connection = await db_connection();
-    let query = `DELETE FROM users, songs, playlists, hasPlaylist
-    WHERE songs.songID = hasPlaylist.songID
-    AND hasPlaylists.playlistID = playlists.playlistID
-    AND playlists.userID = users.userID
-    AND songName = ?`;
-    let result = await sqlQuery(connection, query, [songDelete]);
-    connection.end();
-    return res.send("Succesful!");
-  } catch (e) {
-    console.log(e);
-    return res.json({
-      error: e,
-    });
-  }
-};
+// module.exports.deleteSongs = async (req, res) => {
+//   let songDelete = req.body.songName;
+//   try {
+//     let connection = await db_connection();
+//     let query = `DELETE FROM users, songs, playlists, hasPlaylist
+//     WHERE songs.songID = hasPlaylist.songID
+//     AND hasPlaylists.playlistID = playlists.playlistID
+//     AND playlists.userID = users.userID
+//     AND songName = ?`;
+//     let result = await sqlQuery(connection, query, [songDelete]);
+//     connection.end();
+//     return res.send("Succesful!");
+//   } catch (e) {
+//     console.log(e);
+//     return res.json({
+//       error: e,
+//     });
+//   }
+// };
