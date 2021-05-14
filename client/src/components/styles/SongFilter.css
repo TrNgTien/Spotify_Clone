@@ -1,0 +1,18 @@
+.song-filter-container {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  align-items: center;
+  
+}
+
+.song-filter--songName {
+  width: 70%;
+  border-right: 1px solid white;
+  /* padding-left: 10px; */
+}
+
+.song-filter--artistName {
+  width: 30%;
+  padding-left: 10px;
+}
