@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "axios";
-// import { API_CONNECTION } from "../../constants/BE_CONNECTION";
+import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,10 +58,9 @@ export default function RegisterForm(props) {
   };
   const handleRegister = async () => {
     try {
-      // axios.post(API_CONNECTION + `/userForm/register`);
       if ((userName !== undefined, password !== undefined)) {
         axios
-          .post(`http://localhost:8080/userForm/register`, {
+          .post(`${API_CONNECTION}/userForm/register`, {
             userName: userName,
             password: password,
           })

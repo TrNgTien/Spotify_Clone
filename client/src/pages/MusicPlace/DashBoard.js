@@ -34,7 +34,7 @@ const DashBoard = (props) => {
 
   const getUserInfo = async () => {
     let response = await axios.get(
-      `${API_LOCAL_CONNECTION}/userForm/getUser?userName=${userName}&password=${password}`
+      `${API_CONNECTION}/userForm/getUser?userName=${userName}&password=${password}`
     );
     let data = response.data.data.typeName;
     setUserData(data);

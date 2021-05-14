@@ -1,1 +1,1 @@
-export const GET_ALL_GENRES = () => `http://localhost:8080/songs/getAllGenres`;
+export const GET_ALL_GENRES = () => `https://spotify-db.herokuapp.com/songs/getAllGenres`;

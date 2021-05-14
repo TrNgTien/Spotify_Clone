@@ -16,8 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 // import { setUserInfo } from "../../slices/LoginForm";
-// import { API_CONNECTION } from "../../constants/BE_CONNECTION";
-import { API_LOCAL_CONNECTION } from "../../constants/BE_CONNECTION";
+import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 import { setAuthen } from "../../slices/LoginForm";
 
 const PICTURE_LOGIN = background;
@@ -84,9 +83,8 @@ const LoginForm = (props) => {
   };
   const handleLogin = (userName, password) => {
     try {
-      // axios.post(API_CONNECTION + `/userForm/login`);
       axios
-        .post(`http://localhost:8080/userForm/login`, {
+        .post(`${API_CONNECTION}/userForm/login`, {
           userName: userName,
           password: password,
         })

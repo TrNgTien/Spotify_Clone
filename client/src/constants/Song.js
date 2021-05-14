@@ -1,1 +1,1 @@
-export const GET_ALL_SONG = () => `http://localhost:8080/songs/getAllSongs`;
+export const GET_ALL_SONG = () => `https://spotify-db.herokuapp.com/songs/getAllSongs`;
