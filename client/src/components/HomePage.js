@@ -10,12 +10,12 @@ const HomePage = (props) => {
   const renderMusicGrid = () => {
     return (
       dataSong &&
-      dataSong.map(({ name, singer }, index) => {
+      dataSong.map(({ songName, artistName }, index) => {
         return (
           <div key={index}>
             <div className="home-page--music-card">
-              <p className="home-page--music-card__song">{name}</p>
-              <p className="home-page--music-card__singer">{singer}</p>
+              <p className="home-page--music-card__song">{songName}</p>
+              <p className="home-page--music-card__singer">{artistName}</p>
             </div>
           </div>
         );
