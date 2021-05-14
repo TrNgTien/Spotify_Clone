@@ -1,5 +1,5 @@
 //Packages
-import React, { useState } from "react";
+import React from "react";
 import { FcMusic } from "react-icons/fc";
 import { IoMdHome } from "react-icons/io";
 import { ImSearch } from "react-icons/im";

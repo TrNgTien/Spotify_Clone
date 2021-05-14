@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainControl from "./MainControl";
 import MusicGrid from "./MusicGrid";
-import MusicBar from "./MusicBar";
+// import MusicBar from "./MusicBar";
 import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 import { useSelector } from "react-redux";
 import UploadForm from "../../components/UploadForm";
@@ -27,7 +27,7 @@ const DashBoard = (props) => {
   const [dataSong, setDataSong] = useState([]);
   const [viewOption, setViewOption] = useState();
   const [isLoaded, setIsLoaded] = useState(true);
-  const isOpenModal = useSelector((state) => state.modal);
+  const isOpenModal = useSelector((state) => state.modal.modal);
   const [userData, setUserData] = useState([]);
   const userName = props.location.userName;
   const password = props.location.password;

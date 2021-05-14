@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 export const FormModal = createSlice({
   name: "modal",
-  initialState: {},
+  initialState: {
+    modal: "",
+  },
   reducers: {
     setOpenModal: (state, action) => {
-      return action.payload;
+      const { payload } = action;
+      return { ...state, modal: payload };
     },
     setCloseModal: (state, action) => {
-      return action.payload;
+      const { payload } = action;
+      return { ...state, modal: payload };
     },
   },
 });

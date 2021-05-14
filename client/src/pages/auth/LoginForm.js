@@ -13,10 +13,13 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import background from "../../assets/background.jpg";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 // import { setUserInfo } from "../../slices/LoginForm";
 // import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 import { API_LOCAL_CONNECTION } from "../../constants/BE_CONNECTION";
-import axios from "axios";
+import { setAuthen } from "../../slices/LoginForm";
+
 const PICTURE_LOGIN = background;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = (props) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const Copyright = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -90,6 +93,7 @@ const LoginForm = (props) => {
         .then((result) => {
           if (result.data.message === "Login Successfully") {
             setLoginSuccess(true);
+            dispatch(setAuthen(true));
             props.history.push({
               pathname: "/main-page",
               userName,
