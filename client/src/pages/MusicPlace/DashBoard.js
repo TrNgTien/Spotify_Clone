@@ -8,11 +8,15 @@ import MusicBar from "./MusicBar";
 import { API_CONNECTION } from "../../constants/BE_CONNECTION";
 import { useSelector } from "react-redux";
 import UploadForm from "../../components/UploadForm";
+
+
+import {_getAllSongs} from '../../api/Song'
+
 //Styles
 import "./styles/DashBoard.css";
 
 const DashBoard = (props) => {
-  const [dataMain, setDataMain] = useState(DATA_SONG);
+  const [dataSong, setDataSong] = useState(DATA_SONG);
   const [viewOption, setViewOption] = useState();
   const [isLoaded, setIsLoaded] = useState(true);
   const isOpenModal = useSelector((state) => state.modal);
@@ -20,23 +24,15 @@ const DashBoard = (props) => {
   const getData = async () => {
     const response = await axios.get(`${API_CONNECTION}`);
     const data = response.data;
-    setDataMain(data);
+    setDataSong(data);
     setIsLoaded(true);
   };
 
-  // useEffect ( () => {
-  //   getData();
-  // },[])
-
-  // const sendData = () => {
-  //   axios.post('http://localhost:8080/create',{
-  //     name: name,
-  //     employeeCode: code,
-  //     salary: salary
-  //   }).then(() => {
-  //     console.log("Success!")
-  //   })
-  // }
+  const getAllSongs = React.useCallback(() => _getAllSongs());
+  React.useEffect(() => getAllSongs().then(res => {
+    let newSongData = [].concat(res.data.data);
+    setDataSong(newSongData)
+  }),[])
 
   /**
    * @param option which user want to show
@@ -53,12 +49,12 @@ const DashBoard = (props) => {
           viewOptionMusic={(viewOption) => viewOptionMusic(viewOption)}
         />
         {isLoaded === true ? (
-          <MusicGrid dataSong={dataMain} viewOption={viewOption} />
+          <MusicGrid dataSong={dataSong} viewOption={viewOption} />
         ) : (
           "Waiting..."
         )}
       </div>
-      <MusicBar musicBar={dataMain} />
+      <MusicBar musicBar={dataSong} />
     </div>
   );
 };
