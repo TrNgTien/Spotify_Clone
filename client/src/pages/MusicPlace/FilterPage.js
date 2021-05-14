@@ -8,7 +8,6 @@ import "./styles/FilterPage.css";
 
 function FilterPage(props) {
   const songList = props.songList;
-  console.log("songList", songList);
   const [artistList, setArtistList] = React.useState([""]);
   const [genreList, setGenreList] = React.useState([""]);
   const [likeType, setLikeType] = React.useState(
@@ -34,13 +33,11 @@ function FilterPage(props) {
     () =>
       getAllArtists()
         .then((res) => {
-          console.log("res", res);
           let newArtistList = artistList.concat(res.data.data);
           setArtistList(newArtistList);
         })
         .then(() =>
           getAllGenres().then((gen) => {
-            console.log("genre res", gen);
             let newGenreList = genreList.concat(gen.data.data);
             setGenreList(newGenreList);
           })
@@ -56,7 +53,6 @@ function FilterPage(props) {
     );
 
   const handleFilterApplied = () => {
-    console.log({ selectedArtist, selectedGenre, selectedLikeType });
     let currentSongList = sortSongListBaseOnNumberOfLike(selectedLikeType);
     let newFilteredSong = filteredSong;
     for (let song of currentSongList) {
@@ -69,7 +65,6 @@ function FilterPage(props) {
         break;
       }
     }
-    console.log("newFilteredSong", newFilteredSong);
 
     if (
       newFilteredSong.songNameFiltered === "" &&
