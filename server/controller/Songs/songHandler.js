@@ -6,7 +6,7 @@ module.exports.getSongs = async (req, res) => {
   try {
     let connection = await dbConnection();
     let getSongsQuery = `
-      SELECT genreName, artistName, songName, uploadDate, numberOfLikes, duration
+      SELECT *
       FROM genres, songs, belongsto, artists, composeby
       WHERE genres.genreID = belongsto.genreID 
       AND artists.artistID = composeby.artistID
