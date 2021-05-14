@@ -1,49 +1,42 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { _getAllArtists } from "../../api/Artist";
 import { _getAllGenres } from "../../api/Genre";
 import FilterSelect from "../../components/Select/FilterSelect";
 import SongFilter from "../../components/SongFilter";
 import { LikeTypes } from "../../constants/DropDown";
-import "./styles/FilterPage.css";
+// import "./styles/FilterPage.css";
+import "./styles/compressed/FilterPage.min.css";
 
 function FilterPage(props) {
   const songList = props.songList;
-  const [artistList, setArtistList] = React.useState([""]);
-  const [genreList, setGenreList] = React.useState([""]);
-  const [likeType, setLikeType] = React.useState(
-    [""].concat(Object.values(LikeTypes))
-  );
+  const [artistList, setArtistList] = useState([]);
+  const [genreList, setGenreList] = useState([]);
+  const [likeType, setLikeType] = useState([].concat(Object.values(LikeTypes)));
 
-  const [isApplyFilter, setIsApplyFilter] = React.useState(false);
-  const [filteredSong, setFilteredSong] = React.useState({
+  const [isApplyFilter, setIsApplyFilter] = useState(false);
+  const [filteredSong, setFilteredSong] = useState({
     songNameFiltered: "",
     artistNameFiltered: "",
   });
 
-  const [selectedArtist, setSelectedArtist] = React.useState("");
-  const [selectedGenre, setSelectedGenre] = React.useState("");
-  const [selectedLikeType, setSelectedLikeType] = React.useState("");
+  const [selectedArtist, setSelectedArtist] = useState();
+  const [selectedGenre, setSelectedGenre] = useState();
+  const [selectedLikeType, setSelectedLikeType] = useState();
 
-  const [isFilteredSongAvailable, setIsFilteredSongAvailable] =
-    React.useState(false);
+  const [isFilteredSongAvailable, setIsFilteredSongAvailable] = useState(false);
 
-  const getAllArtists = React.useCallback(() => _getAllArtists());
-  const getAllGenres = React.useCallback(() => _getAllGenres());
-  React.useEffect(
-    () =>
-      getAllArtists()
-        .then((res) => {
-          let newArtistList = artistList.concat(res.data.data);
-          setArtistList(newArtistList);
-        })
-        .then(() =>
-          getAllGenres().then((gen) => {
-            let newGenreList = genreList.concat(gen.data.data);
-            setGenreList(newGenreList);
-          })
-        ),
-    []
-  );
+  const getAllArtists = useCallback(() => _getAllArtists());
+  const getAllGenres = useCallback(() => _getAllGenres());
+  useEffect(() => {
+    getAllArtists().then((res) => {
+      let newArtistList = artistList.concat(res.data.data);
+      setArtistList(newArtistList);
+    });
+    getAllGenres().then((gen) => {
+      let newGenreList = genreList.concat(gen.data.data);
+      setGenreList(newGenreList);
+    });
+  }, []);
 
   const onChangeArtist = (artistOpt) => setSelectedArtist(artistOpt);
   const onChangeGenre = (genreOpt) => setSelectedGenre(genreOpt);
@@ -132,7 +125,7 @@ function FilterPage(props) {
             listType="genre"
           />
         ) : null}
-        <button id="filter-button" onClick={handleFilterApplied}>
+        <button id="filter-button" onClick={() => handleFilterApplied()}>
           Apply Filter
         </button>
         <div className="select-label">Sort: </div>
@@ -140,8 +133,8 @@ function FilterPage(props) {
           onChange={(el) => onChangeLikeType(el.target.value)}
           className="select-box"
         >
-          {likeType.map((type) => (
-            <option>{type}</option>
+          {likeType.map((type, index) => (
+            <option key={index}>{type}</option>
           ))}
         </select>
       </div>
@@ -150,14 +143,21 @@ function FilterPage(props) {
         <h3 style={{ marginTop: "30px" }}>
           <i>Results</i>
         </h3>
-        {isApplyFilter && isFilteredSongAvailable && (
+        {/* {isApplyFilter && isFilteredSongAvailable && (
           <SongFilter
             songNameFiltered={filteredSong.songNameFiltered}
             artistNameFiltered={filteredSong.artistNameFiltered}
           />
-        )}
+        )} */}
 
-        {isFilteredSongAvailable === false && <div>No song available</div>}
+        {isApplyFilter && isFilteredSongAvailable === true ? (
+          <SongFilter
+            songNameFiltered={filteredSong.songNameFiltered}
+            artistNameFiltered={filteredSong.artistNameFiltered}
+          />
+        ) : isApplyFilter && isFilteredSongAvailable === false ? (
+          <div style={{ color: "red", fontSize:"20px" }}>No song available now</div>
+        ) : null}
       </div>
     </div>
   );

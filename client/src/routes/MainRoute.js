@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import LoginForm from "../pages/auth/LoginForm";
 import RegisterForm from "../pages/auth/RegisterForm";
 import DashBoard from "../pages/MusicPlace/DashBoard";
+import PrivateRoute from "./PrivateRoute";
 import FilterPage from "../pages/MusicPlace/FilterPage"
 
 const MainRoute = () => {

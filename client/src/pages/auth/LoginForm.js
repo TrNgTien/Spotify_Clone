@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,9 +13,10 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import background from "../../assets/background.jpg";
 import { makeStyles } from "@material-ui/core/styles";
-import axios from "axios";
+// import { setUserInfo } from "../../slices/LoginForm";
 // import { API_CONNECTION } from "../../constants/BE_CONNECTION";
-
+import { API_LOCAL_CONNECTION } from "../../constants/BE_CONNECTION";
+import axios from "axios";
 const PICTURE_LOGIN = background;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,13 +72,14 @@ const LoginForm = (props) => {
   const [password, setPassword] = useState();
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loginMessage, setLoginMessage] = useState();
+
   const onChangeUserName = (valueUserName) => {
     setUserName(valueUserName);
   };
   const onChangePassword = (valuePassword) => {
     setPassword(valuePassword);
   };
-  const handleLogin = async () => {
+  const handleLogin = (userName, password) => {
     try {
       // axios.post(API_CONNECTION + `/userForm/login`);
       axios
@@ -86,16 +88,17 @@ const LoginForm = (props) => {
           password: password,
         })
         .then((result) => {
-          if (result.data.message === "Login successfully!") {
+          if (result.data.message === "Login Successfully") {
             setLoginSuccess(true);
             props.history.push({
               pathname: "/main-page",
               userName,
+              password,
             });
           } else {
             if ((userName === undefined, password === undefined)) {
               setLoginMessage("Please enter your User Name and Password");
-            } else setLoginMessage(result.data.data);
+            } else setLoginMessage(result.data.message);
           }
         });
     } catch (e) {
@@ -157,7 +160,7 @@ const LoginForm = (props) => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => handleLogin()}
+              onClick={() => handleLogin(userName, password)}
             >
               Sign In
             </Button>

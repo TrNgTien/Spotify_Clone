@@ -3,16 +3,13 @@
   flex-direction: row;
   height: 30px;
   align-items: center;
-  
+  margin-top: 5%;
+  color: rgb(59, 139, 219);
 }
-
 .song-filter--songName {
-  width: 70%;
-  border-right: 1px solid white;
-  /* padding-left: 10px; */
+  width: 20%;
+  border-right: 2px solid white;
 }
-
 .song-filter--artistName {
-  width: 30%;
-  padding-left: 10px;
+  margin-left: 2%;
 }

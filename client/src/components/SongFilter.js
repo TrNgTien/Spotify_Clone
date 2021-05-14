@@ -1,6 +1,7 @@
 import React from 'react';
 
-import './styles/SongFilter.css'
+import './styles/compressed/SongFilter.min.css'
+// import './styles/SongFilter.css'
 
 function SongFilter(props) {
     return (
