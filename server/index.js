@@ -2,9 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 8080;
-const songsRoutes = require("./routes/songsRoutes");
-const userRouter = require("./routes/usersRoutes");
-const playlistRoutes = require("./routes/playlistRoutes");
 const routes = require("./routes/index");
 
 app.use(cors());
