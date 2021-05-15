@@ -6,7 +6,7 @@ const dbConfig = {
   database: "heroku_ad1f4c5078c7bf0",
   // multipleStatements: true
 };
-module.exports = async () =>
+module.exports = () =>
   new Promise((resolve, reject) => {
     const connection = mysql.createConnection(dbConfig);
 
