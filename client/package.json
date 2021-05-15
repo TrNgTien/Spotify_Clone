@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://spotify-clone-fe.herokuapp.com",
+  "proxy": "https://spotify-cloned-be.herokuapp.com",
   "eslintConfig": {
     "extends": [
       "react-app",
