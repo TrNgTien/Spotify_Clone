@@ -70,7 +70,7 @@ export default function UploadForm() {
   const handleSongName = (value) => {
     setSongName(value);
   };
-  console.log("check", releaseDate)
+  // console.log("check", releaseDate)
   // const handleReleaseDate = (value) => {
   //   setReleaseDate(value);
   // };
