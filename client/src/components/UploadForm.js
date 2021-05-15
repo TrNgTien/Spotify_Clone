@@ -59,7 +59,7 @@ export default function UploadForm() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [songName, setSongName] = useState();
-  const [releaseDate, setReleaseDate] = useState();
+  const [releaseDate, setReleaseDate] = useState(new Date().toISOString().slice(0, 19).replace('T', ' '));
   const [duration, setDuration] = useState();
   const [genreName, setGenreName] = useState();
   const [artistName, setArtistName] = useState();
@@ -70,9 +70,10 @@ export default function UploadForm() {
   const handleSongName = (value) => {
     setSongName(value);
   };
-  const handleReleaseDate = (value) => {
-    setReleaseDate(value);
-  };
+  console.log("check", releaseDate)
+  // const handleReleaseDate = (value) => {
+  //   setReleaseDate(value);
+  // };
   const handleGenre = (value) => {
     setGenreName(value);
   };
@@ -86,7 +87,7 @@ export default function UploadForm() {
     try {
       if (
         songName !== undefined &&
-        releaseDate !== undefined &&
+        // releaseDate !== undefined &&
         duration !== undefined &&
         genreName !== undefined &&
         artistName !== undefined
@@ -134,7 +135,7 @@ export default function UploadForm() {
                 onChange={(e) => handleSongName(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -148,7 +149,7 @@ export default function UploadForm() {
                 value={releaseDate}
                 onChange={(e) => handleReleaseDate(e.target.value)}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
