@@ -85,7 +85,6 @@ export default function UploadForm() {
   };
   const uploadSong = () => {
     try {
-      // axios.post(API_CONNECTION + `/userForm/login`);
       if (
         songName !== undefined &&
         releaseDate !== undefined &&
@@ -96,13 +95,12 @@ export default function UploadForm() {
         axios
           .post(`${API_CONNECTION}/songs/postSongs`, {
             songName: songName,
-            releaseDate: releaseDate,
+            uploadDate: releaseDate,
             duration: duration,
             genreName: genreName,
             artistName: artistName,
           })
           .then((result) => {
-            console.log("etets", result);
             if (result.data.message === "Insert Successfully!") {
               dispatch(setCloseModal(false));
             } else {
