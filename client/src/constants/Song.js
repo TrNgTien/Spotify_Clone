@@ -1,1 +1,1 @@
-export const GET_ALL_SONG = () => `https://spotify-db.herokuapp.com/songs/getAllSongs`;
+export const GET_ALL_SONG = () => `https://spotify-cloned-be.herokuapp.com/songs/getAllSongs`;

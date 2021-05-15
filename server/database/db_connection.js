@@ -1,12 +1,11 @@
 const mysql = require("mysql");
 const dbConfig = {
-  user: "b4bb330a3f009b",
+  user: "b0920f2865db2e",
   host: "eu-cdbr-west-01.cleardb.com",
-  password: "4be56a74",
-  database: "heroku_1fcc54407741c0e",
+  password: "2abc0c60",
+  database: "heroku_ad1f4c5078c7bf0",
   // multipleStatements: true
 };
-
 module.exports = async () =>
   new Promise((resolve, reject) => {
     const connection = mysql.createConnection(dbConfig);

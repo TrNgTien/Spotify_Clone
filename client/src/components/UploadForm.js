@@ -10,6 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 import { setCloseModal } from "../slices/FormModal";
 import axios from "axios";
+import Moment from "moment";
+import { API_CONNECTION } from "../constants/BE_CONNECTION";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -62,6 +64,7 @@ export default function UploadForm() {
   const [duration, setDuration] = useState();
   const [genreName, setGenreName] = useState();
   const [artistName, setArtistName] = useState();
+
   const handleCloseModal = () => {
     dispatch(setCloseModal(false));
   };
@@ -80,7 +83,6 @@ export default function UploadForm() {
   const handleArtist = (value) => {
     setArtistName(value);
   };
-
   const uploadSong = () => {
     try {
       // axios.post(API_CONNECTION + `/userForm/login`);
@@ -92,7 +94,7 @@ export default function UploadForm() {
         artistName !== undefined
       ) {
         axios
-          .post(`http://localhost:8080/songs/postSongs`, {
+          .post(`${API_CONNECTION}/songs/postSongs`, {
             songName: songName,
             releaseDate: releaseDate,
             duration: duration,
@@ -100,6 +102,7 @@ export default function UploadForm() {
             artistName: artistName,
           })
           .then((result) => {
+            console.log("etets", result);
             if (result.data.message === "Insert Successfully!") {
               dispatch(setCloseModal(false));
             } else {
@@ -144,7 +147,7 @@ export default function UploadForm() {
                 name="releaseDate"
                 color="secondary"
                 autoComplete="releaseDate"
-                placeholder="Release Date Of The Song"
+                placeholder="YY-MM-DD"
                 value={releaseDate}
                 onChange={(e) => handleReleaseDate(e.target.value)}
               />

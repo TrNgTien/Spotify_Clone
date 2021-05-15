@@ -65,7 +65,7 @@ export default function RegisterForm(props) {
             password: password,
           })
           .then((result) => {
-            if (result.data.message === "Register successfully!") {
+            if (result.data.message === "Register Successfully") {
               progressSuccessful();
             }
           });
