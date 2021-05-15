@@ -10,7 +10,6 @@ import {
 import { useDispatch } from "react-redux";
 import { setCloseModal } from "../slices/FormModal";
 import axios from "axios";
-import Moment from "moment";
 import { API_CONNECTION } from "../constants/BE_CONNECTION";
 const useStyles = makeStyles((theme) => ({
   paper: {
