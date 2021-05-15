@@ -6,7 +6,7 @@ module.exports.register = async (req, res) => {
   let userName = req.body.userName;
   try {
     let connection = await dbConnection();
-    let registerQuery = `INSERT INTO users (${USER_ATTRIBUTE.userName},${USER_ATTRIBUTE.password},) 
+    let registerQuery = `INSERT INTO users (${USER_ATTRIBUTE.userName},${USER_ATTRIBUTE.password}) 
     VALUES ('${userName}', '${userName}')`;
     let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${userName}'`;
     let getUserName = await sqlQuery(connection, getUserNameQuery);
