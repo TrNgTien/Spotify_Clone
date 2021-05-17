@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1%",
     marginBottom: "-2%",
   },
+  registerError: {
+    color: "red",
+    fontSize: "20px",
+    marginTop: "1%",
+    marginBottom: "-2%",
+  },
 }));
 
 export default function RegisterForm(props) {
@@ -126,7 +132,11 @@ export default function RegisterForm(props) {
           </Grid>
           <Typography
             variant="h5"
-            className={classes.registerMessage}
+            className={
+              registerMessage === "Register Successfully"
+                ? classes.registerMessage
+                : classes.registerError
+            }
             color="secondary"
           >
             {registerMessage}
