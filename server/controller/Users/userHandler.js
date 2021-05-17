@@ -7,20 +7,22 @@ module.exports.register = async (req, res) => {
   let password = req.body.password;
   try {
     let connection = await dbConnection();
-    let registerQuery = `INSERT INTO users (${USER_ATTRIBUTE.userName},${USER_ATTRIBUTE.password}) 
-    VALUES (? , ?)`;
+
     let getUserNameQuery = `SELECT userName FROM users WHERE userName = ? `;
     let getUserName = await sqlQuery(connection, getUserNameQuery, [userName]);
-    let createUser = await sqlQuery(connection, registerQuery, [
-      userName,
-      password,
-    ]);
+
     connection.end();
     if (getUserName.length !== 0) {
       res.json({
         message: "Username has already existed",
       });
     } else {
+      let registerQuery = `INSERT INTO users (${USER_ATTRIBUTE.userName},${USER_ATTRIBUTE.password}) 
+      VALUES (?, ?)`;
+      let createUser = await sqlQuery(connection, registerQuery, [
+        userName,
+        password,
+      ]);
       res.json({
         message: "Register Successfully",
       });
