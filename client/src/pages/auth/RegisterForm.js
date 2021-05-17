@@ -53,7 +53,7 @@ export default function RegisterForm(props) {
   const [password, setPassword] = useState();
 
   const progressSuccessful = () => {
-    setRegisterMessage("Register successfully, Waiting!");
+    setRegisterMessage("Register successfully. Please Wait....");
     setTimeout(
       () =>
         props.history.push({
@@ -133,11 +133,10 @@ export default function RegisterForm(props) {
           <Typography
             variant="h5"
             className={
-              registerMessage === "Register Successfully"
+              registerMessage === "Register successfully. Please Wait...."
                 ? classes.registerMessage
                 : classes.registerError
             }
-            color="secondary"
           >
             {registerMessage}
           </Typography>

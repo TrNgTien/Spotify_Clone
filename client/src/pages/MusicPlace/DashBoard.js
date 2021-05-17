@@ -58,7 +58,7 @@ const DashBoard = (props) => {
   };
   return isLoaded === true ? (
     <Typography className={classes.waiting} variant="h6" noWrap>
-      Waiting...
+      Please Wait....
     </Typography>
   ) : (
     <div className="dash-board">
