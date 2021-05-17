@@ -11,8 +11,9 @@ module.exports.register = async (req, res) => {
     let getUserNameQuery = `SELECT userName FROM users WHERE userName = ? `;
     let getUserName = await sqlQuery(connection, getUserNameQuery, [userName]);
 
-    connection.end();
+   
     if (getUserName.length !== 0) {
+      connection.end();
       res.json({
         message: "Username has already existed",
       });
@@ -23,6 +24,7 @@ module.exports.register = async (req, res) => {
         userName,
         password,
       ]);
+      connection.end();
       res.json({
         message: "Register Successfully",
       });
