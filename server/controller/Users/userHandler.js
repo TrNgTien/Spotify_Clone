@@ -8,10 +8,13 @@ module.exports.register = async (req, res) => {
   try {
     let connection = await dbConnection();
     let registerQuery = `INSERT INTO users (${USER_ATTRIBUTE.userName},${USER_ATTRIBUTE.password}) 
-    VALUES ('${userName}', '${password}')`;
-    let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${userName}'`;
-    let getUserName = await sqlQuery(connection, getUserNameQuery);
-    let createUser = await sqlQuery(connection, registerQuery);
+    VALUES (? , ?)`;
+    let getUserNameQuery = `SELECT userName FROM users WHERE userName = ? `;
+    let getUserName = await sqlQuery(connection, getUserNameQuery, [userName]);
+    let createUser = await sqlQuery(connection, registerQuery, [
+      userName,
+      password,
+    ]);
     connection.end();
     if (getUserName.length !== 0) {
       res.json({
@@ -35,10 +38,10 @@ module.exports.login = async (req, res) => {
     let userName = req.body.userName;
     let password = req.body.password;
     let connection = await dbConnection();
-    let getUserNameQuery = `SELECT userName FROM users WHERE userName = '${userName}'`;
-    let getPasswordQuery = `SELECT password FROM users WHERE password = '${password}'`;
-    let getUserName = await sqlQuery(connection, getUserNameQuery);
-    let getPassword = await sqlQuery(connection, getPasswordQuery);
+    let getUserNameQuery = `SELECT userName FROM users WHERE userName = ? `;
+    let getPasswordQuery = `SELECT password FROM users WHERE password = ? `;
+    let getUserName = await sqlQuery(connection, getUserNameQuery, [userName]);
+    let getPassword = await sqlQuery(connection, getPasswordQuery, [password]);
     connection.end();
     if (getUserName.length === 0) {
       return res.json({

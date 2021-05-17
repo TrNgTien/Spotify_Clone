@@ -47,7 +47,7 @@ export default function RegisterForm(props) {
   const [password, setPassword] = useState();
 
   const progressSuccessful = () => {
-    setRegisterMessage("Register successfully!");
+    setRegisterMessage("Register successfully, Waiting!");
     setTimeout(
       () =>
         props.history.push({
@@ -56,9 +56,16 @@ export default function RegisterForm(props) {
       1500
     );
   };
-  const handleRegister = async () => {
+
+  const onChangeUserName = (valueUserName) => {
+    setUserName(valueUserName);
+  };
+  const onChangePassword = (valuePassword) => {
+    setPassword(valuePassword);
+  };
+  const handleRegister = () => {
     try {
-      if ((userName !== undefined, password !== undefined)) {
+      if (userName !== undefined && password !== undefined) {
         axios
           .post(`${API_CONNECTION}/userForm/register`, {
             userName: userName,
@@ -67,6 +74,8 @@ export default function RegisterForm(props) {
           .then((result) => {
             if (result.data.message === "Register Successfully") {
               progressSuccessful();
+            } else {
+              setRegisterMessage(result.data.message);
             }
           });
       }
@@ -75,12 +84,6 @@ export default function RegisterForm(props) {
     }
   };
 
-  const onChangeUserName = (valueUserName) => {
-    setUserName(valueUserName);
-  };
-  const onChangePassword = (valuePassword) => {
-    setPassword(valuePassword);
-  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
