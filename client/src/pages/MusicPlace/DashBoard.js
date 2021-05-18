@@ -13,8 +13,8 @@ import { _getAllSongs } from "../../api/Song";
 //Styles
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import "./styles/compressed/DashBoard.min.css";
-// import "./styles/DashBoard.css";
+// import "./styles/compressed/DashBoard.min.css";
+import "./styles/DashBoard.css";
 
 const useStyles = makeStyles(() => ({
   waiting: {

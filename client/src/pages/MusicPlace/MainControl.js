@@ -10,8 +10,8 @@ import { setOpenModal } from "../../slices/FormModal";
 
 //Styles
 import { Button } from "@material-ui/core";
-import "./styles/compressed/MainControl.min.css";
-// import "./styles/MainControl.css"; 
+// import "./styles/compressed/MainControl.min.css";
+import "./styles/MainControl.css"; 
 
 const MainControl = (props) => {
   const dispatch = useDispatch();

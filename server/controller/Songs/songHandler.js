@@ -18,7 +18,7 @@ module.exports.getSongs = async (req, res) => {
     return res.status(200).json({ data: result, message: "Successfully!" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ 
+    res.status(500).json({
       message: "error",
       error: error,
     });
@@ -36,15 +36,28 @@ module.exports.postSongs = async (req, res) => {
     let genreName = req.body.genreName;
     // let numberOfLikes = req.body.numberOfLikes;
 
-    //Insert the artistID, genreID for composeBy & belongsTo table
-    //To know what song of which genre and whose compose the song
-    let artistNameQuery = `SELECT artistName FROM artists WHERE artistName = '${artistName}' `;
-    let genreNameQuery = `SELECT genreName FROM genres WHERE genreName = '${genreName}'`;
+    //---------------------Check Song has already existed or not---------------------
+    let getSongsName = `SELECT songName FROM songs  WHERE songName = ?`;
+    let getSongsNameResult = await sqlQuery(connection, getSongsName, [
+      songName,
+    ]);
 
-    let getArtistNameResult = await sqlQuery(connection, artistNameQuery);
-    let getGenreNameResult = await sqlQuery(connection, genreNameQuery);
+    //-------------------------Check 4 cases when insert a song----------------------------
+    let artistNameQuery = `SELECT artistName FROM artists WHERE artistName = ? `;
+    let genreNameQuery = `SELECT genreName FROM genres WHERE genreName = ? `;
 
-    if (getArtistNameResult.length !== 0 && getGenreNameResult.length !== 0) {
+    let getArtistNameResult = await sqlQuery(connection, artistNameQuery, [
+      artistName,
+    ]);
+    let getGenreNameResult = await sqlQuery(connection, genreNameQuery, [
+      genreName,
+    ]);
+
+    if (
+      getArtistNameResult.length !== 0 &&
+      getGenreNameResult.length !== 0 &&
+      getSongsNameResult.length !== 0
+    ) {
       songFunction.AllExisted(
         artistName,
         songName,
@@ -57,7 +70,8 @@ module.exports.postSongs = async (req, res) => {
       );
     } else if (
       getArtistNameResult.length !== 0 &&
-      getGenreNameResult.length === 0
+      getGenreNameResult.length === 0 &&
+      getSongsNameResult.length !== 0
     ) {
       songFunction.ArtistExisted(
         artistName,
@@ -71,7 +85,8 @@ module.exports.postSongs = async (req, res) => {
       );
     } else if (
       getArtistNameResult.length === 0 &&
-      getGenreNameResult.length !== 0
+      getGenreNameResult.length !== 0 &&
+      getSongsNameResult.length !== 0
     ) {
       songFunction.GenreExisted(
         artistName,

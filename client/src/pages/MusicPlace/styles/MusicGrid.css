@@ -1,11 +1,8 @@
-.music-grid__page{
-    background-color: #121212;
-    color: #fefefe;
-    width: 100%;
-    height: 100vh;
+.music-grid__page {
+  background-color: #121212;
+  color: #fefefe;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
 }
-.music-grid__page--header{
-    background-color: dodgerblue;
-    height: 10%;
-    position: static;
-}
+  

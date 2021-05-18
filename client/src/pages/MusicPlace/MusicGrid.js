@@ -1,12 +1,12 @@
 //Packages
 import React from "react";
-import PlayList from "../../components/PlayList";
 import HomePage from "../../components/HomePage";
 import HeaderBar from "../../components/HeaderBar";
+// import PlayList from "../../components/PlayList";
 
 //Styles
-// import "./styles/MusicGrid.css";
-import "./styles/compressed/MusicGrid.min.css";
+import "./styles/MusicGrid.css";
+// import "./styles/compressed/MusicGrid.min.css";
 import FilterPage from "./FilterPage";
 
 const MusicGrid = (props) => {
@@ -14,17 +14,17 @@ const MusicGrid = (props) => {
   const dataSong = props.dataSong;
   const { userName } = props;
   return (
-    <div className="music-grid__page">
+    <div style={{ width: "100vw" }}>
       <HeaderBar userName={userName} />
-      {optionClicked === "favourite" ? (
-        <PlayList />
-      ) : optionClicked === "homePage" ? (
-        <HomePage dataSong={dataSong} />
-      ) : optionClicked === "filter" ? (
-        <FilterPage songList={dataSong} />
-      ) : (
-        <HomePage dataSong={dataSong} />
-      )}
+      <div className="music-grid__page">
+        {optionClicked === "homePage" ? (
+          <HomePage dataSong={dataSong} />
+        ) : optionClicked === "filter" ? (
+          <FilterPage songList={dataSong} />
+        ) : (
+          <HomePage dataSong={dataSong} />
+        )}
+      </div>
     </div>
   );
 };

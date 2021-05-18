@@ -8,10 +8,12 @@ module.exports.AllExisted = async (
   sqlQuery,
   res
 ) => {
-  let artistIDQuery = `SELECT artistID FROM artists WHERE artistName = '${artistName}' `;
-  let genreIDQuery = `SELECT genreID FROM genres WHERE genreName = '${genreName}' `;
-  let getArtistIDResult = await sqlQuery(connection, artistIDQuery);
-  let getGenreIDResult = await sqlQuery(connection, genreIDQuery);
+  let artistIDQuery = `SELECT artistID FROM artists WHERE artistName = ? `;
+  let genreIDQuery = `SELECT genreID FROM genres WHERE genreName = ? `;
+  let getArtistIDResult = await sqlQuery(connection, artistIDQuery, [
+    artistName,
+  ]);
+  let getGenreIDResult = await sqlQuery(connection, genreIDQuery, [genreName]);
 
   let resultArtistID = getArtistIDResult[0].artistID;
   let resultGenreID = getGenreIDResult[0].genreID;
@@ -28,10 +30,16 @@ module.exports.AllExisted = async (
   let getSongsIDQueryResult = await sqlQuery(connection, getSongsID);
   let newestSongID = getSongsIDQueryResult[0].songID;
 
-  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (${resultArtistID}, ${newestSongID})`;
-  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery);
-  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (${resultGenreID}, ${newestSongID})`;
-  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery);
+  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (?, ?)`;
+  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery, [
+    resultArtistID,
+    newestSongID,
+  ]);
+  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (?, ?)`;
+  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery, [
+    resultGenreID,
+    newestSongID,
+  ]);
 
   connection.end();
   return res.status(200).json({
@@ -49,8 +57,10 @@ module.exports.ArtistExisted = async (
   res
 ) => {
   //----------------Get artistID with the same artistName of user's input---------------------------
-  let artistIDQuery = `SELECT artistID FROM artists WHERE artistName = '${artistName}' `;
-  let getArtistIDResult = await sqlQuery(connection, artistIDQuery);
+  let artistIDQuery = `SELECT artistID FROM artists WHERE artistName = ? `;
+  let getArtistIDResult = await sqlQuery(connection, artistIDQuery, [
+    artistName,
+  ]);
   let resultArtistID = getArtistIDResult[0].artistID;
 
   //---------------------Insert genreName to table genres-------------------------
@@ -78,11 +88,17 @@ module.exports.ArtistExisted = async (
   let getSongsIDQueryResult = await sqlQuery(connection, getSongsID);
   let newestSongID = getSongsIDQueryResult[0].songID;
 
-  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (${resultArtistID}, ${newestSongID})`;
-  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery);
+  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (?, ?)`;
+  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery, [
+    resultArtistID,
+    newestSongID,
+  ]);
 
-  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (${newestGenreID}, ${newestSongID})`;
-  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery);
+  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (?, ?)`;
+  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery, [
+    newestGenreID,
+    newestSongID,
+  ]);
 
   connection.end();
   return res.status(200).json({
@@ -100,8 +116,8 @@ module.exports.GenreExisted = async (
   res
 ) => {
   //----------------Get genreID with the same genreName of user's input---------------------------
-  let genreIDQuery = `SELECT genreID FROM genres WHERE genreName = '${genreName}' `;
-  let getGenreIDResult = await sqlQuery(connection, genreIDQuery);
+  let genreIDQuery = `SELECT genreID FROM genres WHERE genreName = ? `;
+  let getGenreIDResult = await sqlQuery(connection, genreIDQuery, [genreName]);
   let resultGenreID = getGenreIDResult[0].genreID;
 
   //---------------------Insert artistName to table artists-------------------------
@@ -128,10 +144,16 @@ module.exports.GenreExisted = async (
   let newestSongID = getSongsIDQueryResult[0].songID;
 
   let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (${newestArtistID}, ${newestSongID})`;
-  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery);
+  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery, [
+    newestArtistID,
+    newestSongID,
+  ]);
 
   let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (${resultGenreID}, ${newestSongID})`;
-  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery);
+  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery, [
+    resultGenreID,
+    newestSongID,
+  ]);
   connection.end();
   return res.status(200).json({
     message: "Insert Successfully!",
@@ -181,10 +203,16 @@ module.exports.RemainningCondition = async (
   let newestSongID = getSongsIDQueryResult[0].songID;
 
   let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (${newestArtistID}, ${newestSongID})`;
-  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery);
+  let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery, [
+    newestArtistID,
+    newestSongID,
+  ]);
 
   let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (${newestGenreID}, ${newestSongID})`;
-  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery);
+  let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery, [
+    newestGenreID,
+    newestSongID,
+  ]);
   connection.end();
   return res.status(200).json({
     message: "Insert Successfully!",
