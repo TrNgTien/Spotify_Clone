@@ -14,8 +14,12 @@ module.exports.postPlaylists = async (req, res) => {
     let finalID = newestID + 1;
     //--------------------------Query playlist newest ID------------------------
 
-    let queryInsert = `INSERT INTO playlists (playlistID, playlistName, userID) VALUES ( ${finalID}, ?, ${userID} )`;
-    let insertResults = await sqlQuery(connection, queryInsert, [playlistName]);
+    let queryInsert = `INSERT INTO playlists (playlistID, playlistName, userID) VALUES ( ?, ?, ? )`;
+    let insertResults = await sqlQuery(connection, queryInsert, [
+      finalID,
+      playlistName,
+      userID,
+    ]);
     connection.end();
     return res.status(200).json({
       message: "Insert Successfully!",
