@@ -143,13 +143,13 @@ module.exports.GenreExisted = async (
   let getSongsIDQueryResult = await sqlQuery(connection, getSongsID);
   let newestSongID = getSongsIDQueryResult[0].songID;
 
-  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (${newestArtistID}, ${newestSongID})`;
+  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (? , ?)`;
   let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery, [
     newestArtistID,
     newestSongID,
   ]);
 
-  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (${resultGenreID}, ${newestSongID})`;
+  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (? , ?)`;
   let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery, [
     resultGenreID,
     newestSongID,
@@ -202,13 +202,13 @@ module.exports.RemainningCondition = async (
   let getSongsIDQueryResult = await sqlQuery(connection, getSongsID);
   let newestSongID = getSongsIDQueryResult[0].songID;
 
-  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (${newestArtistID}, ${newestSongID})`;
+  let postComposeByQuery = `INSERT INTO composeby (artistID, songID) VALUES (?, ?)`;
   let postSongComposeByResult = await sqlQuery(connection, postComposeByQuery, [
     newestArtistID,
     newestSongID,
   ]);
 
-  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (${newestGenreID}, ${newestSongID})`;
+  let postBelongsToQuery = `INSERT INTO belongsto (genreID, songID) VALUES (?, ?)`;
   let postSongBelongsToResult = await sqlQuery(connection, postBelongsToQuery, [
     newestGenreID,
     newestSongID,
