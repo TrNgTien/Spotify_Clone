@@ -107,6 +107,34 @@ const LoginForm = (props) => {
       console.log("Error: ", e);
     }
   };
+  const handleLoginEnter = (userName, password, e) => {
+    try {
+      if (e.key === "Enter") {
+        axios
+          .post(`${API_CONNECTION}/userForm/login`, {
+            userName: userName,
+            password: password,
+          })
+          .then((result) => {
+            if (result.data.message === "Login Successfully") {
+              setLoginSuccess(true);
+              dispatch(setAuthen(true));
+              props.history.push({
+                pathname: "/main-page",
+                userName,
+                password,
+              });
+            } else {
+              if ((userName === undefined, password === undefined)) {
+                setLoginMessage("Please enter your User Name and Password");
+              } else setLoginMessage(result.data.message);
+            }
+          });
+      }
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  };
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -144,6 +172,7 @@ const LoginForm = (props) => {
               id="password"
               value={password}
               autoComplete="current-password"
+              onKeyDown={(e) => handleLoginEnter(userName, password, e)}
               onChange={(e) => onChangePassword(e.target.value)}
             />
             {/* <FormControlLabel

@@ -51,7 +51,7 @@ export default function RegisterForm(props) {
   const [registerMessage, setRegisterMessage] = useState();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
-
+  const [confirmPassword, setConfirmPassword] = useState();
   const progressSuccessful = () => {
     setRegisterMessage("Register successfully. Please Wait....");
     setTimeout(
@@ -69,13 +69,16 @@ export default function RegisterForm(props) {
   const onChangePassword = (valuePassword) => {
     setPassword(valuePassword);
   };
+  const onChangeConfirmPassword = (valuePassword) => {
+    if (valuePassword === password) setConfirmPassword(valuePassword);
+  };
   const handleRegister = () => {
     try {
       if (userName !== undefined && password !== undefined) {
         axios
           .post(`${API_CONNECTION}/userForm/register`, {
             userName: userName,
-            password: password,
+            password: confirmPassword,
           })
           .then((result) => {
             if (result.data.message === "Register Successfully") {
@@ -129,6 +132,21 @@ export default function RegisterForm(props) {
                 onChange={(e) => onChangePassword(e.target.value)}
               />
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              style={{ marginTop: "5%" }}
+              name="password"
+              label="Confirm Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={confirmPassword}
+              onChange={(e) => onChangeConfirmPassword(e.target.value)}
+            />
           </Grid>
           <Typography
             variant="h5"
